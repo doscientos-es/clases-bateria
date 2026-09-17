@@ -41,7 +41,12 @@ function useRoleGuard(pathname: string, isAuthRoute: boolean) {
       void navigate({ to: '/login', replace: true })
       return
     }
-    if (identity.role === 'student' && pathname !== '/alumno') {
+    const studentPlaceholderRoutes = ['/comunicaciones', '/calendario', '/configuracion']
+    if (
+      identity.role === 'student' &&
+      pathname !== '/alumno' &&
+      !studentPlaceholderRoutes.includes(pathname)
+    ) {
       void navigate({ to: '/alumno', replace: true })
       return
     }

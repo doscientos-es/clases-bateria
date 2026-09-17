@@ -2,7 +2,7 @@ import type { DemoData } from '../domain/entities'
 import { DemoError } from '../domain/errors'
 import { loadSeed } from './seed-loader'
 
-export const DEMO_STORAGE_KEY = 'clases-bateria.demo.v1'
+export const DEMO_STORAGE_KEY = 'clases-bateria.demo.v2'
 
 function readStorage(): Storage | null {
   try {

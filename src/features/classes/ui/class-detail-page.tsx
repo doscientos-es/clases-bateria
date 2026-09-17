@@ -16,7 +16,16 @@ import {
   TabsTrigger,
 } from '@doscientos/ui'
 import { Link } from '@tanstack/react-router'
-import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
+import {
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  FileText,
+  MoreVertical,
+  Plus,
+  Send,
+  Trash2,
+} from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -65,6 +74,9 @@ export function ClassDetailPage({ classId }: { classId: string }) {
           </PageHeaderMeta>
         </PageHeaderHeading>
         <PageHeaderActions>
+          <Button variant="outline">
+            <Eye aria-hidden /> Vista previa de la clase
+          </Button>
           <Button variant="outline" onPress={() => setEditing(true)}>
             Editar clase
           </Button>
@@ -73,7 +85,7 @@ export function ClassDetailPage({ classId }: { classId: string }) {
           </Link>
         </PageHeaderActions>
       </PageHeader>
-      <Tabs className="space-y-4" defaultSelectedKey="students">
+      <Tabs className="space-y-4" defaultSelectedKey="path">
         <TabsList aria-label="Secciones de la clase">
           <TabsTrigger id="students">Alumnos</TabsTrigger>
           <TabsTrigger id="path">Itinerario</TabsTrigger>
@@ -90,6 +102,7 @@ export function ClassDetailPage({ classId }: { classId: string }) {
             <PathPanel
               classId={classId}
               path={path}
+              students={students}
               documents={snapshot.data?.documents ?? []}
               isLoading={snapshot.isPending}
             />
@@ -166,11 +179,13 @@ function StudentsPanel({
 function PathPanel({
   classId,
   path,
+  students,
   documents,
   isLoading,
 }: {
   classId: string
   path: ClassPathItem[]
+  students: Student[]
   documents: DocumentItem[]
   isLoading: boolean
 }) {
@@ -178,41 +193,86 @@ function PathPanel({
   const remove = useRemoveDocumentFromClassPath()
   const move = useMoveClassDocument()
   const share = useShareDocumentWithClass()
-  const [selected, setSelected] = useState('')
   const included = new Set(path.map((item) => item.document.id))
   if (isLoading) return <LoadingBlock label="Cargando biblioteca…" />
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <section className="space-y-3">
-        <h2 className="text-sm font-semibold">Biblioteca disponible</h2>
-        <select
-          className="border-border bg-background w-full rounded-md border px-3 py-2 text-sm"
-          aria-label="Documento para añadir"
-          value={selected}
-          onChange={(event) => setSelected(event.target.value)}
-        >
-          <option value="">Selecciona un documento</option>
+    <div className="class-path-layout">
+      <section className="class-path-library space-y-3">
+        <div className="workspace-panel-heading">
+          <div>
+            <h2>Biblioteca</h2>
+            <p>Busca y selecciona documentos para añadir a tu clase.</p>
+          </div>
+          <LibraryIcon />
+        </div>
+        <input
+          className="workspace-search"
+          aria-label="Buscar documentos"
+          placeholder="Buscar documentos…"
+        />
+        <div className="workspace-filters">
+          <span className="is-active">Todos</span>
+          <span>Teoría</span>
+          <span>Ejercicios</span>
+        </div>
+        <div className="workspace-document-list">
           {documents
             .filter((document) => document.status !== 'archived' && !included.has(document.id))
+            .slice(0, 5)
             .map((document) => (
-              <option key={document.id} value={document.id}>
-                {document.title}
-              </option>
+              <button
+                className="workspace-document-row"
+                key={document.id}
+                onClick={() => add.mutate({ classId, documentId: document.id })}
+              >
+                <span className="workspace-document-icon">
+                  <FileText aria-hidden />
+                </span>
+                <span>
+                  <strong>{document.title}</strong>
+                  <small>
+                    {document.category} · {document.fileName}
+                  </small>
+                </span>
+                <Plus aria-hidden />
+              </button>
             ))}
-        </select>
-        <Button
-          isDisabled={!selected || add.isPending}
-          onPress={() => {
-            add.mutate({ classId, documentId: selected })
-            setSelected('')
-          }}
-        >
-          Añadir al itinerario
-        </Button>
+        </div>
+        <div className="workspace-share-box">
+          <div className="workspace-panel-heading">
+            <div>
+              <h2>Compartir con</h2>
+              <p>Alumnos de esta clase</p>
+            </div>
+            <Send aria-hidden />
+          </div>
+          <div className="workspace-recipient-list">
+            {students.length ? (
+              students.map((student) => (
+                <span key={student.id}>
+                  {student.name.split(' ')[0]} <MoreVertical aria-hidden />
+                </span>
+              ))
+            ) : (
+              <span>Ningún alumno asignado</span>
+            )}
+          </div>
+          <Button className="w-full">
+            <Send aria-hidden /> Compartir documentos
+          </Button>
+        </div>
       </section>
-      <section className="space-y-3">
+      <section className="class-path-timeline space-y-3">
         <div>
-          <h2 className="text-sm font-semibold">Itinerario de la clase</h2>
+          <div className="workspace-panel-heading">
+            <div>
+              <h2>Itinerario</h2>
+              <p>Organiza los materiales de tu clase en el orden que prefieras.</p>
+            </div>
+            <Button variant="outline">
+              <Plus aria-hidden /> Añadir materiales
+            </Button>
+          </div>
           <p className="text-muted-foreground mt-1 text-sm">
             Ordena el contenido y compártelo con todos los alumnos cuando esté listo.
           </p>
@@ -290,4 +350,8 @@ function PathPanel({
       </section>
     </div>
   )
+}
+
+function LibraryIcon() {
+  return <FileText aria-hidden className="workspace-heading-icon" />
 }

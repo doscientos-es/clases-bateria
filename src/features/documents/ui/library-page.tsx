@@ -17,7 +17,7 @@ import {
   SelectValue,
   SelectionToolbar,
 } from '@doscientos/ui'
-import { FileText, MoreHorizontal } from 'lucide-react'
+import { FileText } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -67,6 +67,9 @@ export function LibraryPage() {
   const archive = useArchiveDocument()
   const categories = snapshot.data ? documentCategories(snapshot.data) : []
   const levels = snapshot.data ? documentLevels(snapshot.data) : []
+  const filtersAreActive = Boolean(
+    search.trim() || category !== 'all' || level !== 'all' || status !== 'all',
+  )
 
   function toggle(documentId: string, isSelected: boolean) {
     setSelected((current) =>
@@ -77,6 +80,13 @@ export function LibraryPage() {
   function openForm(document: DocumentItem | null) {
     setEditing(document)
     setFormOpen(true)
+  }
+
+  function clearFilters() {
+    setSearch('')
+    setCategory('all')
+    setLevel('all')
+    setStatus('all')
   }
 
   return (
@@ -94,7 +104,7 @@ export function LibraryPage() {
         </PageHeaderActions>
       </PageHeader>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="page-filter-bar">
         <Input
           aria-label="Buscar documentos"
           placeholder="Buscar por título o descripción"
@@ -161,7 +171,18 @@ export function LibraryPage() {
             </SelectList>
           </SelectContent>
         </Select>
+        {filtersAreActive ? (
+          <Button variant="ghost" onPress={clearFilters}>
+            Limpiar filtros
+          </Button>
+        ) : null}
       </div>
+
+      {documents.data ? (
+        <p className="page-filter-summary">
+          Mostrando {documents.data.length} documento{documents.data.length === 1 ? '' : 's'}
+        </p>
+      ) : null}
 
       {selected.length > 0 ? (
         <SelectionToolbar count={selected.length}>
@@ -202,11 +223,13 @@ export function LibraryPage() {
                     isSelected={selected.includes(document.id)}
                     onChange={(isSelected) => toggle(document.id, isSelected)}
                   />
-                  <Button size="sm" variant="ghost" aria-label={`Más acciones para ${document.title}`}>
-                    <MoreHorizontal aria-hidden />
-                  </Button>
+                  <Badge variant={document.status === 'published' ? 'secondary' : 'outline'}>
+                    {statusLabels[document.status]}
+                  </Badge>
                 </div>
-                <div className="document-thumb" aria-hidden><FileText /></div>
+                <div className="document-thumb" aria-hidden>
+                  <FileText />
+                </div>
                 <div>
                   <h2 className="font-semibold">{document.title}</h2>
                   <p className="text-muted-foreground mt-1 text-xs">{document.fileName}</p>
@@ -219,14 +242,20 @@ export function LibraryPage() {
                   {snapshot.data ? describeVisibility(snapshot.data, document.id) : 'Privado'}
                 </p>
               </div>
-              <div className="mt-4 flex items-center justify-between gap-2 border-t border-border pt-3">
-                <Badge variant={document.status === 'published' ? 'secondary' : 'outline'}>
-                  {statusLabels[document.status]}
-                </Badge>
+              <div className="border-border mt-4 flex items-center justify-between gap-2 border-t pt-3">
                 <div className="flex gap-1">
-                  <Button size="sm" variant="outline" onPress={() => openForm(document)}>Editar</Button>
+                  <Button size="sm" variant="outline" onPress={() => openForm(document)}>
+                    Editar
+                  </Button>
                   {document.status === 'archived' ? null : (
-                    <Button size="sm" variant="ghost" onPress={() => archive.mutate(document.id)} isDisabled={archive.isPending}>Archivar</Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onPress={() => archive.mutate(document.id)}
+                      isDisabled={archive.isPending}
+                    >
+                      Archivar
+                    </Button>
                   )}
                 </div>
               </div>

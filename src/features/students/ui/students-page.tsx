@@ -51,10 +51,17 @@ export function StudentsPage() {
   })
   const archive = useArchiveStudent()
   const restore = useRestoreStudent()
+  const filtersAreActive = Boolean(search.trim() || classId !== 'all' || status !== 'all')
 
   function openForm(student: Student | null) {
     setEditing(student)
     setFormOpen(true)
+  }
+
+  function clearFilters() {
+    setSearch('')
+    setClassId('all')
+    setStatus('all')
   }
 
   return (
@@ -71,7 +78,7 @@ export function StudentsPage() {
         </PageHeaderActions>
       </PageHeader>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="page-filter-bar">
         <Input
           aria-label="Buscar alumnos"
           placeholder="Buscar por nombre o email"
@@ -118,7 +125,18 @@ export function StudentsPage() {
             </SelectList>
           </SelectContent>
         </Select>
+        {filtersAreActive ? (
+          <Button variant="ghost" onPress={clearFilters}>
+            Limpiar filtros
+          </Button>
+        ) : null}
       </div>
+
+      {students.data ? (
+        <p className="page-filter-summary">
+          Mostrando {students.data.length} alumno{students.data.length === 1 ? '' : 's'}
+        </p>
+      ) : null}
 
       {students.isPending ? <LoadingBlock label="Cargando alumnos…" /> : null}
       {students.isError ? <ErrorBlock onRetry={() => void students.refetch()} /> : null}

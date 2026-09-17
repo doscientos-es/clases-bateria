@@ -69,7 +69,9 @@ export function ClassesPage() {
                   {schoolClass.description || 'Itinerario de aprendizaje y materiales.'}
                 </p>
                 <div className="class-card-meta mt-5">
-                  <span><UsersRound aria-hidden /> {schoolClass.studentIds.length} alumnos</span>
+                  <span>
+                    <UsersRound aria-hidden /> {schoolClass.studentIds.length} alumnos
+                  </span>
                   <Badge variant={schoolClass.status === 'active' ? 'secondary' : 'outline'}>
                     {schoolClass.status === 'active' ? 'Activa' : 'Archivada'}
                   </Badge>

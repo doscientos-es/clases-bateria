@@ -93,6 +93,104 @@
       "level": "Inicial",
       "status": "published",
       "fileName": "primer-groove.pdf"
+    },
+    {
+      "id": "doc-rudimentos",
+      "title": "Rudimentos esenciales",
+      "category": "Técnica",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "rudimentos-esenciales.pdf",
+      "description": "Ejercicios base para ganar control y soltura."
+    },
+    {
+      "id": "doc-independencia",
+      "title": "Independencia de manos",
+      "category": "Técnica",
+      "level": "Intermedio",
+      "status": "published",
+      "fileName": "independencia-manos.pdf",
+      "description": "Patrones progresivos para coordinar las extremidades."
+    },
+    {
+      "id": "doc-compases",
+      "title": "Compases de 4/4 y 3/4",
+      "category": "Ritmo",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "compases-basicos.pdf"
+    },
+    {
+      "id": "doc-sincopas",
+      "title": "Síncopas y contratiempos",
+      "category": "Ritmo",
+      "level": "Intermedio",
+      "status": "published",
+      "fileName": "sincopas-contratiempos.pdf"
+    },
+    {
+      "id": "doc-figuras",
+      "title": "Figuras musicales y silencios",
+      "category": "Lectura",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "figuras-silencios.pdf"
+    },
+    {
+      "id": "doc-lectura-ritmica",
+      "title": "Lectura rítmica · Nivel 2",
+      "category": "Lectura",
+      "level": "Intermedio",
+      "status": "published",
+      "fileName": "lectura-ritmica-nivel-2.pdf"
+    },
+    {
+      "id": "doc-metronomo",
+      "title": "Guía de práctica con metrónomo",
+      "category": "Práctica",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "practica-metronomo.pdf"
+    },
+    {
+      "id": "doc-calentamiento",
+      "title": "Calentamiento diario",
+      "category": "Práctica",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "calentamiento-diario.pdf"
+    },
+    {
+      "id": "doc-rock",
+      "title": "Repertorio: rock básico",
+      "category": "Repertorio",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "repertorio-rock-basico.pdf"
+    },
+    {
+      "id": "doc-funk",
+      "title": "Repertorio: groove funk",
+      "category": "Repertorio",
+      "level": "Intermedio",
+      "status": "published",
+      "fileName": "repertorio-groove-funk.pdf"
+    },
+    {
+      "id": "doc-teoria-musical",
+      "title": "Teoría musical para bateristas",
+      "category": "Teoría",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "teoria-musical-bateristas.pdf"
+    },
+    {
+      "id": "doc-dinamicas",
+      "title": "Dinámicas y acentos",
+      "category": "Técnica",
+      "level": "Intermedio",
+      "status": "draft",
+      "fileName": "dinamicas-acentos.pdf"
     }
   ],
   "classDocumentPaths": [

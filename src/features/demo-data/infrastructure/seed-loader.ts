@@ -56,7 +56,7 @@ export function loadSeed(): DemoData {
   const documents: DocumentItem[] = seed.documents.map((document) => ({
     id: document.id,
     title: document.title,
-    description: '',
+    description: document.description ?? '',
     category: document.category,
     level: document.level,
     status: documentStatus(document.status),

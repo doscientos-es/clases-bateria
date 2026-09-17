@@ -9,13 +9,9 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderHeading,
-  PageHeaderMeta,
-  PageHeaderTitle,
   PageStack,
 } from '@doscientos/ui'
+import { Sparkles } from 'lucide-react'
 import { useState } from 'react'
 
 import { useDemoSession } from '@/features/demo-auth'
@@ -53,64 +49,84 @@ export function StudentPortalPage() {
   }
   return (
     <PageStack>
-      <PageHeader>
-        <PageHeaderHeading>
-          <PageHeaderTitle>Hola, {student?.name.split(' ')[0] ?? identity?.name}</PageHeaderTitle>
-          <PageHeaderDescription>
-            Aquí tienes tus clases y la teoría que te han compartido.
-          </PageHeaderDescription>
-          <PageHeaderMeta>
-            <Badge variant="outline">Portal del alumno</Badge>
-            <span className="text-muted-foreground text-sm">{classes.length} clases</span>
-          </PageHeaderMeta>
-        </PageHeaderHeading>
-      </PageHeader>
-      <div className="portal-overview-grid">
-        <div className="portal-overview-card">
-          <p className="portal-overview-label">Progreso general</p>
+      <section className="student-home-hero">
+        <div>
+          <p className="student-home-eyebrow">Tu espacio de aprendizaje</p>
+          <h1>Hola, {student?.name.split(' ')[0] ?? identity?.name}</h1>
+          <p>Qué bueno tenerte de vuelta. La música sigue aquí para ti.</p>
+        </div>
+        <img
+          src="/assets/music-classroom-hero.png"
+          alt="Espacio de estudio musical con metrónomo y partituras"
+          className="student-portal-hero-image"
+        />
+      </section>
+      <div className="student-home-top-grid">
+        <section className="student-home-section">
+          <div className="student-home-section-heading">
+            <div>
+              <p className="student-home-eyebrow">Ahora mismo</p>
+              <h2>Tus clases</h2>
+            </div>
+            <span className="student-home-count">{classes.length} activas</span>
+          </div>
+          <div className="student-class-grid">
+            {classes.map((schoolClass, index) => (
+              <article
+                className={`student-class-card student-class-card-${index % 3}`}
+                key={schoolClass.id}
+              >
+                <div className="student-class-image" />
+                <div className="student-class-card-body">
+                  <h3>{schoolClass.name}</h3>
+                  <p>{schoolClass.description || 'Continúa con tu itinerario de aprendizaje'}</p>
+                  <Badge variant="secondary">{schoolClass.level || 'Nivel inicial'}</Badge>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="student-progress-card">
+          <div className="student-progress-copy">
+            <p className="student-home-eyebrow">Tu progreso</p>
+            <h2>Vas muy bien</h2>
+            <p>Sigue practicando, estás en el camino correcto.</p>
+          </div>
           <ProgressBar
             completed={completedCount}
             total={documents.length}
             label="Teoría completada"
           />
-        </div>
-        <div className="portal-overview-card">
-          <p className="portal-overview-label">Mis clases</p>
-          {classes.length === 0 ? (
-            <p className="text-muted-foreground text-sm">Todavía no tienes clases asignadas.</p>
-          ) : (
-            <ul className="flex flex-wrap gap-2">
-              {classes.map((schoolClass) => (
-                <li key={schoolClass.id}>
-                  <Badge variant="secondary">{schoolClass.name}</Badge>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        </section>
       </div>
-      <DocumentSection
-        title="Para ti"
-        description="Material que tus profesores han compartido directamente contigo."
-        emptyTitle="No tienes envíos individuales"
-        emptyDescription="Cuando recibas material personalizado aparecerá aquí."
-        documents={directDocuments}
-        onOpen={openDocument}
-        onToggleCompleted={(documentId, isCompleted) =>
-          completed.mutate({ documentId, studentId, completed: isCompleted })
-        }
-      />
-      <DocumentSection
-        title="De tus clases"
-        description="Material compartido con los grupos a los que perteneces."
-        emptyTitle="No hay material de tus clases"
-        emptyDescription="Cuando tu profesor comparta teoría con una clase aparecerá aquí."
-        documents={classDocuments}
-        onOpen={openDocument}
-        onToggleCompleted={(documentId, isCompleted) =>
-          completed.mutate({ documentId, studentId, completed: isCompleted })
-        }
-      />
+      <div className="student-documents-grid">
+        <DocumentSection
+          title="Para ti"
+          description="Recursos seleccionados especialmente para tu aprendizaje."
+          emptyTitle="No tienes envíos individuales"
+          emptyDescription="Cuando recibas material personalizado aparecerá aquí."
+          documents={directDocuments}
+          onOpen={openDocument}
+          onToggleCompleted={(documentId, isCompleted) =>
+            completed.mutate({ documentId, studentId, completed: isCompleted })
+          }
+        />
+        <DocumentSection
+          title="De tus clases"
+          description="Material compartido por tus profesores."
+          emptyTitle="No hay material de tus clases"
+          emptyDescription="Cuando tu profesor comparta teoría con una clase aparecerá aquí."
+          documents={classDocuments}
+          onOpen={openDocument}
+          onToggleCompleted={(documentId, isCompleted) =>
+            completed.mutate({ documentId, studentId, completed: isCompleted })
+          }
+        />
+      </div>
+      <div className="student-home-quote">
+        <Sparkles aria-hidden />
+        <span>La disciplina de hoy es la libertad musical de mañana.</span>
+      </div>
       <DialogRoot
         open={Boolean(current)}
         onOpenChange={(open) => {

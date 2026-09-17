@@ -6,7 +6,9 @@ import {
   GraduationCap,
   LayoutDashboard,
   Library,
+  MessageCircle,
   Settings,
+  SlidersHorizontal,
   Users,
 } from 'lucide-react'
 import type { ComponentType } from 'react'
@@ -24,6 +26,7 @@ type AppRoute =
   | '/informes'
   | '/configuracion'
   | '/alumno'
+  | '/comunicaciones'
 
 type NavigationItem = {
   to: AppRoute
@@ -45,7 +48,12 @@ const placeholderItems: NavigationItem[] = [
   { to: '/configuracion', label: 'Configuración', icon: Settings },
 ]
 
-const studentItems: NavigationItem[] = [{ to: '/alumno', label: 'Mi portal', icon: BookOpen }]
+const studentItems: NavigationItem[] = [
+  { to: '/alumno', label: 'Mi portal', icon: BookOpen },
+  { to: '/comunicaciones', label: 'Comunicaciones', icon: MessageCircle },
+  { to: '/calendario', label: 'Calendario', icon: CalendarDays },
+  { to: '/configuracion', label: 'Ajustes', icon: SlidersHorizontal },
+]
 
 function NavigationLink({
   item,
@@ -80,7 +88,7 @@ export function PrimaryNavigation({
   if (role === 'student') {
     return (
       <>
-        <p className="app-navigation-section-label">Alumnado</p>
+        <p className="app-navigation-section-label">Mi aprendizaje</p>
         {studentItems.map((item) => (
           <NavigationLink key={item.to} item={item} onNavigate={onNavigate} />
         ))}

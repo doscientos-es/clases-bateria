@@ -15,6 +15,7 @@ import { Route as AlumnosRouteImport } from './routes/alumnos'
 import { Route as BibliotecaRouteImport } from './routes/biblioteca'
 import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as ClasesRouteImport } from './routes/clases'
+import { Route as ComunicacionesRouteImport } from './routes/comunicaciones'
 import { Route as ConfiguracionRouteImport } from './routes/configuracion'
 import { Route as InformesRouteImport } from './routes/informes'
 import { Route as LoginRouteImport } from './routes/login'
@@ -54,6 +55,11 @@ const CalendarioRoute = CalendarioRouteImport.update({
 const ClasesRoute = ClasesRouteImport.update({
   id: '/clases',
   path: '/clases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComunicacionesRoute = ComunicacionesRouteImport.update({
+  id: '/comunicaciones',
+  path: '/comunicaciones',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfiguracionRoute = ConfiguracionRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/biblioteca': typeof BibliotecaRoute
   '/calendario': typeof CalendarioRoute
   '/clases': typeof ClasesRouteWithChildren
+  '/comunicaciones': typeof ComunicacionesRoute
   '/configuracion': typeof ConfiguracionRoute
   '/informes': typeof InformesRoute
   '/login': typeof LoginRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/alumnos': typeof AlumnosRouteWithChildren
   '/biblioteca': typeof BibliotecaRoute
   '/calendario': typeof CalendarioRoute
+  '/comunicaciones': typeof ComunicacionesRoute
   '/configuracion': typeof ConfiguracionRoute
   '/informes': typeof InformesRoute
   '/login': typeof LoginRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/biblioteca': typeof BibliotecaRoute
   '/calendario': typeof CalendarioRoute
   '/clases': typeof ClasesRouteWithChildren
+  '/comunicaciones': typeof ComunicacionesRoute
   '/configuracion': typeof ConfiguracionRoute
   '/informes': typeof InformesRoute
   '/login': typeof LoginRoute
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/biblioteca'
     | '/calendario'
     | '/clases'
+    | '/comunicaciones'
     | '/configuracion'
     | '/informes'
     | '/login'
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/alumnos'
     | '/biblioteca'
     | '/calendario'
+    | '/comunicaciones'
     | '/configuracion'
     | '/informes'
     | '/login'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/biblioteca'
     | '/calendario'
     | '/clases'
+    | '/comunicaciones'
     | '/configuracion'
     | '/informes'
     | '/login'
@@ -224,6 +236,7 @@ export interface RootRouteChildren {
   BibliotecaRoute: typeof BibliotecaRoute
   CalendarioRoute: typeof CalendarioRoute
   ClasesRoute: typeof ClasesRouteWithChildren
+  ComunicacionesRoute: typeof ComunicacionesRoute
   ConfiguracionRoute: typeof ConfiguracionRoute
   InformesRoute: typeof InformesRoute
   LoginRoute: typeof LoginRoute
@@ -274,6 +287,13 @@ declare module '@tanstack/react-router' {
       path: '/clases'
       fullPath: '/clases'
       preLoaderRoute: typeof ClasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comunicaciones': {
+      id: '/comunicaciones'
+      path: '/comunicaciones'
+      fullPath: '/comunicaciones'
+      preLoaderRoute: typeof ComunicacionesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/configuracion': {
@@ -392,6 +412,7 @@ const rootRouteChildren: RootRouteChildren = {
   BibliotecaRoute: BibliotecaRoute,
   CalendarioRoute: CalendarioRoute,
   ClasesRoute: ClasesRouteWithChildren,
+  ComunicacionesRoute: ComunicacionesRoute,
   ConfiguracionRoute: ConfiguracionRoute,
   InformesRoute: InformesRoute,
   LoginRoute: LoginRoute,
