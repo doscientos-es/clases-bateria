@@ -26,6 +26,7 @@ import { useState } from 'react'
 
 import { useDemoSnapshot, type EntityStatus, type Student } from '@/features/demo-data'
 import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 import { useArchiveStudent, useRestoreStudent, useStudents } from '../application/student-hooks'
 import { StudentFormDialog } from './student-form-dialog'
@@ -162,9 +163,14 @@ export function StudentsPage() {
             {students.data.map((student) => (
               <TableRow key={student.id}>
                 <TableCell>
-                  <Link to="/alumnos/$studentId" params={{ studentId: student.id }}>
-                    {student.name}
-                  </Link>
+                  <div className="person-cell">
+                    <PersonAvatar person={student} />
+                    <div>
+                      <Link to="/alumnos/$studentId" params={{ studentId: student.id }}>
+                        {student.name}
+                      </Link>
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell className="text-muted-foreground">{student.email}</TableCell>
                 <TableCell>

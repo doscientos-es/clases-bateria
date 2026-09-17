@@ -43,6 +43,152 @@
       "name": "Pau Rius",
       "email": "pau@aulanorte.es",
       "status": "active"
+    },
+    {
+      "id": "student-alba",
+      "name": "Alba Navarro",
+      "email": "alba@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-hugo",
+      "name": "Hugo Molina",
+      "email": "hugo@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-clara",
+      "name": "Clara Vidal",
+      "email": "clara@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-oriol",
+      "name": "Oriol Costa",
+      "email": "oriol@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-elena",
+      "name": "Elena Ramos",
+      "email": "elena@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-adrian",
+      "name": "Adrián León",
+      "email": "adrian@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-julia",
+      "name": "Julia Serra",
+      "email": "julia@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-iker",
+      "name": "Iker Pastor",
+      "email": "iker@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-laia",
+      "name": "Laia Ferrer",
+      "email": "laia@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-mateo",
+      "name": "Mateo Gil",
+      "email": "mateo@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-ines",
+      "name": "Inés Romero",
+      "email": "ines@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-daniel",
+      "name": "Daniel Vega",
+      "email": "daniel@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-marta",
+      "name": "Marta Soler",
+      "email": "marta@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-arnau",
+      "name": "Arnau Pons",
+      "email": "arnau@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-sara",
+      "name": "Sara Montes",
+      "email": "sara@aulanorte.es",
+      "status": "active"
+    },
+    { "id": "student-nil", "name": "Nil Roca", "email": "nil@aulanorte.es", "status": "active" },
+    {
+      "id": "student-paula",
+      "name": "Paula Rey",
+      "email": "paula@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-eric",
+      "name": "Eric Bosch",
+      "email": "eric@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-aina",
+      "name": "Aina Martín",
+      "email": "aina@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-marina",
+      "name": "Marina López",
+      "email": "marina@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-guillem",
+      "name": "Guillem Prat",
+      "email": "guillem@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-nuria",
+      "name": "Nuria Campos",
+      "email": "nuria@aulanorte.es",
+      "status": "active"
+    },
+    { "id": "student-joan", "name": "Joan Sanz", "email": "joan@aulanorte.es", "status": "active" },
+    {
+      "id": "student-leire",
+      "name": "Leire Martín",
+      "email": "leire@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-raul",
+      "name": "Raúl Esteban",
+      "email": "raul@aulanorte.es",
+      "status": "active"
+    },
+    {
+      "id": "student-lucia2",
+      "name": "Lucía García",
+      "email": "lucia.garcia@aulanorte.es",
+      "status": "active"
     }
   ],
   "classes": [

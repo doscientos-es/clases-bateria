@@ -462,6 +462,18 @@ select {
   box-shadow: 0 14px 30px rgb(75 48 33 / 7%);
   transform: translateY(-2px);
 }
+.document-access-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 1.5rem;
+}
+.document-access-meta .person-avatar-group {
+  flex: none;
+  min-height: 1.5rem;
+  padding-left: 0.2rem;
+}
 .dashboard-lower-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
@@ -654,6 +666,15 @@ select {
 .dashboard-activity-list small {
   display: block;
 }
+.share-warning {
+  border: 1px solid #e4c98d;
+  border-radius: 0.6rem;
+  background: #fff8e7;
+  padding: 0.7rem 0.8rem;
+  color: #7a5b19;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
 .dashboard-activity-list strong {
   font-size: 0.78rem;
 }
@@ -678,6 +699,16 @@ select {
   .dashboard-command-grid > :last-child {
     grid-column: auto;
   }
+}
+
+.student-share-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.student-share-option small {
+  display: inline;
+  margin-left: 0.2rem;
 }
 .dashboard-panel {
   border: 1px solid var(--border);
@@ -1263,6 +1294,72 @@ select {
   color: var(--muted-foreground);
   font-size: 0.78rem;
   font-weight: 600;
+}
+
+.person-cell {
+  display: flex;
+  min-width: 12rem;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.person-detail-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.person-avatar {
+  display: inline-flex;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  flex: none;
+  overflow: hidden;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  background: var(--secondary);
+  box-shadow: 0 2px 7px rgb(75 48 33 / 12%);
+}
+
+.person-avatar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.person-avatar-group {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  margin: 0;
+  padding-left: 0.3rem;
+  list-style: none;
+}
+
+.person-avatar-group-item {
+  position: relative;
+  z-index: 1;
+  margin-left: -0.45rem;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+}
+
+.person-avatar-group-item:first-child {
+  margin-left: 0;
+}
+
+.person-avatar-group-more {
+  display: grid;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  margin-left: -0.45rem;
+  place-items: center;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  font-size: 0.65rem;
+  font-weight: 750;
 }
 
 .dashboard-welcome-panel {

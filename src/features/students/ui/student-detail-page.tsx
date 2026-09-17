@@ -16,6 +16,7 @@ import { useDemoSnapshot, useStudentLibrary } from '@/features/demo-data'
 import { useUnshareDocumentWithStudent } from '@/features/documents'
 import { formatDate } from '@/shared/lib/dates'
 import { ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 import { ProgressBar } from '@/shared/ui/progress-bar'
 
 import { useStudent } from '../application/student-hooks'
@@ -51,7 +52,10 @@ export function StudentDetailPage({ studentId }: { studentId: string }) {
     <PageStack>
       <PageHeader>
         <PageHeaderHeading>
-          <PageHeaderTitle>{student.data.name}</PageHeaderTitle>
+          <div className="person-detail-heading">
+            <PersonAvatar person={student.data} size={44} />
+            <PageHeaderTitle>{student.data.name}</PageHeaderTitle>
+          </div>
           <PageHeaderDescription>{student.data.email}</PageHeaderDescription>
           <PageHeaderMeta>
             <Badge variant={student.data.status === 'active' ? 'secondary' : 'outline'}>

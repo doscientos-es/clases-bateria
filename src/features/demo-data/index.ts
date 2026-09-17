@@ -29,6 +29,7 @@ export {
   classIdsForStudent,
   directShareDocumentIds,
   documentVisibility,
+  studentIdsWithDocument,
   visibleDocumentIds,
 } from './domain/access'
 export type {

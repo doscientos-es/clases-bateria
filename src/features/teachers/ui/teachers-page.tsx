@@ -26,6 +26,7 @@ import { useMemo, useState } from 'react'
 
 import { type Teacher } from '@/features/demo-data'
 import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 import { useArchiveTeacher, useRestoreTeacher, useTeachers } from '../application/teacher-hooks'
 import { filterAndSortTeachers, type TeacherSort } from '../domain/teacher-list'
@@ -211,14 +212,19 @@ export function TeachersPage() {
             {visibleTeachers.map((teacher) => (
               <TableRow key={teacher.id}>
                 <TableCell>
-                  <Link
-                    className="font-medium underline"
-                    to="/profesores/$teacherId"
-                    params={{ teacherId: teacher.id }}
-                  >
-                    {teacher.name}
-                  </Link>
-                  <span className="text-muted-foreground block text-xs">{teacher.email}</span>
+                  <div className="person-cell">
+                    <PersonAvatar person={teacher} />
+                    <div>
+                      <Link
+                        className="font-medium underline"
+                        to="/profesores/$teacherId"
+                        params={{ teacherId: teacher.id }}
+                      >
+                        {teacher.name}
+                      </Link>
+                      <span className="text-muted-foreground block text-xs">{teacher.email}</span>
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell>{teacher.specialty}</TableCell>
                 <TableCell>

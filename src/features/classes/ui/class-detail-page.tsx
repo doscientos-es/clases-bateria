@@ -35,6 +35,7 @@ import {
   type Student,
 } from '@/features/demo-data'
 import { ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 import {
   useAddStudentToClass,
@@ -139,15 +140,18 @@ function StudentsPanel({
             className="border-border flex items-center justify-between rounded-lg border p-3"
             key={student.id}
           >
-            <div>
-              <Link
-                className="font-medium underline"
-                to="/alumnos/$studentId"
-                params={{ studentId: student.id }}
-              >
-                {student.name}
-              </Link>
-              <p className="text-muted-foreground text-xs">{student.email}</p>
+            <div className="person-cell">
+              <PersonAvatar person={student} size={32} />
+              <div>
+                <Link
+                  className="font-medium underline"
+                  to="/alumnos/$studentId"
+                  params={{ studentId: student.id }}
+                >
+                  {student.name}
+                </Link>
+                <p className="text-muted-foreground text-xs">{student.email}</p>
+              </div>
             </div>
             <Button
               size="sm"
@@ -168,6 +172,7 @@ function StudentsPanel({
             variant="outline"
             onPress={() => add.mutate({ classId, studentId: student.id })}
           >
+            <PersonAvatar person={student} size={26} />
             Añadir {student.name}
           </Button>
         ))}

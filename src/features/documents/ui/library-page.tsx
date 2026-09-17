@@ -17,16 +17,18 @@ import {
   SelectValue,
   SelectionToolbar,
 } from '@doscientos/ui'
-import { FileText } from 'lucide-react'
+import { FileText, Share2 } from 'lucide-react'
 import { useState } from 'react'
 
 import {
   useDemoSnapshot,
+  studentIdsWithDocument,
   type DocumentItem,
   type DocumentStatus,
   type ShareResult,
 } from '@/features/demo-data'
 import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatarGroup } from '@/shared/ui/person-avatar'
 
 import { useArchiveDocument, useDocuments } from '../application/document-hooks'
 import { describeVisibility, documentCategories, documentLevels } from '../domain/visibility'
@@ -67,6 +69,15 @@ export function LibraryPage() {
   const archive = useArchiveDocument()
   const categories = snapshot.data ? documentCategories(snapshot.data) : []
   const levels = snapshot.data ? documentLevels(snapshot.data) : []
+  const accessStudentIdsByDocument =
+    snapshot.data && documents.data
+      ? new Map(
+          documents.data.map((document) => [
+            document.id,
+            new Set(studentIdsWithDocument(snapshot.data, document.id)),
+          ]),
+        )
+      : null
   const filtersAreActive = Boolean(
     search.trim() || category !== 'all' || level !== 'all' || status !== 'all',
   )
@@ -238,14 +249,34 @@ export function LibraryPage() {
                   <Badge variant="outline">{document.category}</Badge>
                   <Badge variant="outline">{document.level || 'Inicial'}</Badge>
                 </div>
-                <p className="text-muted-foreground text-xs">
-                  {snapshot.data ? describeVisibility(snapshot.data, document.id) : 'Privado'}
-                </p>
+                <div className="document-access-meta">
+                  <p className="text-muted-foreground text-xs">
+                    {snapshot.data ? describeVisibility(snapshot.data, document.id) : 'Privado'}
+                  </p>
+                  {snapshot.data ? (
+                    <PersonAvatarGroup
+                      size={24}
+                      people={snapshot.data.students.filter(
+                        (student) =>
+                          accessStudentIdsByDocument?.get(document.id)?.has(student.id) ?? false,
+                      )}
+                    />
+                  ) : null}
+                </div>
               </div>
               <div className="border-border mt-4 flex items-center justify-between gap-2 border-t pt-3">
                 <div className="flex gap-1">
                   <Button size="sm" variant="outline" onPress={() => openForm(document)}>
                     Editar
+                  </Button>
+                  <Button
+                    size="sm"
+                    onPress={() => {
+                      setSelected([document.id])
+                      setShareOpen(true)
+                    }}
+                  >
+                    <Share2 aria-hidden /> Compartir
                   </Button>
                   {document.status === 'archived' ? null : (
                     <Button

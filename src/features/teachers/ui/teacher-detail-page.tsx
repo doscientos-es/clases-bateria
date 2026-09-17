@@ -14,6 +14,7 @@ import { useState } from 'react'
 
 import { useDemoSnapshot } from '@/features/demo-data'
 import { ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 import { useTeacher } from '../application/teacher-hooks'
 import { TeacherFormDialog } from './teacher-form-dialog'
@@ -32,7 +33,10 @@ export function TeacherDetailPage({ teacherId }: { teacherId: string }) {
     <PageStack>
       <PageHeader>
         <PageHeaderHeading>
-          <PageHeaderTitle>{teacher.data.name}</PageHeaderTitle>
+          <div className="person-detail-heading">
+            <PersonAvatar person={teacher.data} size={44} />
+            <PageHeaderTitle>{teacher.data.name}</PageHeaderTitle>
+          </div>
           <PageHeaderDescription>{teacher.data.email}</PageHeaderDescription>
           <PageHeaderMeta>
             <Badge variant={teacher.data.status === 'active' ? 'secondary' : 'outline'}>

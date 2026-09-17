@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { loadSeed } from '../infrastructure/seed-loader'
-import { buildStudentLibrary, visibleDocumentIds } from './access'
+import { buildStudentLibrary, studentIdsWithDocument, visibleDocumentIds } from './access'
 
 describe('student document visibility', () => {
   it('unites class grants and direct grants without exposing private documents', () => {
@@ -35,5 +35,15 @@ describe('student document visibility', () => {
 
     expect(completed).toMatchObject({ viewed: true, completed: true })
     expect(pending).toMatchObject({ viewed: false, completed: false })
+  })
+
+  it('combines direct and class recipients for a document', () => {
+    const data = loadSeed()
+
+    expect(studentIdsWithDocument(data, 'doc-ritmo-subdivision')).toEqual([
+      'student-lucia',
+      'student-marcos',
+      'student-nora',
+    ])
   })
 })

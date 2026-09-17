@@ -14,6 +14,7 @@ import { useState } from 'react'
 import { describeError, useDemoSnapshot } from '@/features/demo-data'
 import { useShareDocumentsWithStudents } from '@/features/documents'
 import { matchesSearch } from '@/shared/lib/ids'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 /** Sends documents to a single student from their profile. */
 export function ShareWithStudentDialog({
@@ -77,7 +78,10 @@ export function ShareWithStudentDialog({
                 isSelected={documentIds.includes(document.id)}
                 onChange={(selected) => toggle(document.id, selected)}
               >
-                {document.title}
+                <span className="student-share-option">
+                  <PersonAvatar person={{ id: document.id, name: document.title }} size={28} />
+                  {document.title}
+                </span>
               </Checkbox>
             ))}
           </div>

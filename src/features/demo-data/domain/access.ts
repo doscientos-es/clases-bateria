@@ -113,3 +113,20 @@ export function documentVisibility(
       .map((share) => share.studentId),
   }
 }
+
+/** Active students who can access a document through any sharing channel. */
+export function studentIdsWithDocument(data: DemoData, documentId: string): string[] {
+  const directStudentIds = data.directShares
+    .filter((share) => share.documentId === documentId)
+    .map((share) => share.studentId)
+  const sharedClassIds = new Set(
+    data.classDocumentPaths
+      .filter((entry) => entry.documentId === documentId && entry.shared)
+      .map((entry) => entry.classId),
+  )
+  const classStudentIds = data.classes
+    .filter((schoolClass) => schoolClass.status === 'active' && sharedClassIds.has(schoolClass.id))
+    .flatMap((schoolClass) => schoolClass.studentIds)
+  const studentIds = new Set([...directStudentIds, ...classStudentIds])
+  return data.students.filter((student) => studentIds.has(student.id)).map((student) => student.id)
+}

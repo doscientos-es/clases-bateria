@@ -25,15 +25,15 @@ export function DashboardPage() {
       <section className="dashboard-welcome-panel">
         <PageHeader>
           <PageHeaderHeading>
-            <PageHeaderTitle>¡Hola!</PageHeaderTitle>
+            <PageHeaderTitle>Resumen de la escuela</PageHeaderTitle>
             <PageHeaderDescription>
               {snapshot.data
-                ? `Aquí tienes un resumen de la actividad de ${snapshot.data.school.name}.`
-                : 'Aquí tienes un resumen de la actividad de tu escuela.'}
+                ? `Actividad y próximos pasos de ${snapshot.data.school.name}.`
+                : 'Actividad y próximos pasos de tu escuela.'}
             </PageHeaderDescription>
           </PageHeaderHeading>
         </PageHeader>
-        <span className="dashboard-welcome-note">Todo bajo control</span>
+        <span className="dashboard-welcome-note">Vista general</span>
       </section>
 
       {snapshot.isPending ? <LoadingBlock /> : null}

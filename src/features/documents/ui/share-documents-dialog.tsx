@@ -7,11 +7,18 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
+  Input,
 } from '@doscientos/ui'
 import { useState } from 'react'
 
-import { describeError, useDemoSnapshot, type ShareResult } from '@/features/demo-data'
+import {
+  buildStudentLibrary,
+  describeError,
+  useDemoSnapshot,
+  type ShareResult,
+} from '@/features/demo-data'
 import { LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 import { useShareDocumentsWithStudents } from '../application/document-hooks'
 
@@ -28,12 +35,24 @@ export function ShareDocumentsDialog({
   onShared?: (result: ShareResult) => void
 }) {
   const [studentIds, setStudentIds] = useState<string[]>([])
+  const [search, setSearch] = useState('')
   const snapshot = useDemoSnapshot()
   const share = useShareDocumentsWithStudents()
 
   const students = (snapshot.data?.students ?? []).filter((student) => student.status === 'active')
   const documents = (snapshot.data?.documents ?? []).filter((document) =>
     documentIds.includes(document.id),
+  )
+  const filteredStudents = students.filter((student) =>
+    `${student.name} ${student.email}`.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+  )
+  const accessByStudent = new Map(
+    snapshot.data
+      ? students.map((student) => [
+          student.id,
+          new Set(buildStudentLibrary(snapshot.data, student.id).map((item) => item.document.id)),
+        ])
+      : [],
   )
 
   function toggle(studentId: string, selected: boolean) {
@@ -45,6 +64,7 @@ export function ShareDocumentsDialog({
   function close(open: boolean) {
     if (!open) {
       setStudentIds([])
+      setSearch('')
       share.reset()
     }
     onOpenChange(open)
@@ -90,18 +110,51 @@ export function ShareDocumentsDialog({
 
           <section className="space-y-2" aria-label="Alumnos destinatarios">
             <h3 className="text-sm font-semibold">Alumnos</h3>
+            <Input
+              aria-label="Buscar alumnos"
+              placeholder="Buscar alumno por nombre o email"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
             <div className="max-h-56 space-y-1.5 overflow-y-auto pr-1">
-              {students.map((student) => (
-                <Checkbox
-                  key={student.id}
-                  isSelected={studentIds.includes(student.id)}
-                  onChange={(selected) => toggle(student.id, selected)}
-                >
-                  {student.name}
-                </Checkbox>
-              ))}
+              {filteredStudents.map((student) => {
+                const existing = documents.filter((document) =>
+                  accessByStudent.get(student.id)?.has(document.id),
+                )
+                const blocked = existing.length > 0
+                return (
+                  <Checkbox
+                    key={student.id}
+                    isSelected={studentIds.includes(student.id)}
+                    isDisabled={blocked}
+                    onChange={(selected) => toggle(student.id, selected)}
+                  >
+                    <span className="student-share-option">
+                      <PersonAvatar person={student} size={28} />
+                      <span>
+                        {student.name}{' '}
+                        <small className="text-muted-foreground">
+                          {blocked
+                            ? `· Ya tiene ${existing.map((item) => item.title).join(', ')}`
+                            : ''}
+                        </small>
+                      </span>
+                    </span>
+                  </Checkbox>
+                )
+              })}
             </div>
           </section>
+
+          {documents.length > 0 &&
+          students.some((student) =>
+            documents.some((document) => accessByStudent.get(student.id)?.has(document.id)),
+          ) ? (
+            <p className="share-warning" role="status">
+              Los alumnos que ya tienen alguno de estos documentos aparecen bloqueados. No se creará
+              un acceso duplicado.
+            </p>
+          ) : null}
 
           <p className="text-muted-foreground text-sm" aria-live="polite">
             {studentIds.length === 0
