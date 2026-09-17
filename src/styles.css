@@ -124,7 +124,6 @@ select {
   padding: 1.5rem 1.25rem;
 }
 .app-shell-sidebar {
-  display: flex;
   flex-direction: column;
 }
 .app-sidebar-navigation {
@@ -138,8 +137,11 @@ select {
   width: 2.25rem;
   height: 2.25rem;
   place-items: center;
+  border: 0;
   border-radius: 0.65rem;
+  background: transparent;
   color: var(--foreground);
+  cursor: pointer;
 }
 .mobile-menu-trigger:hover {
   background: var(--muted);
@@ -1288,11 +1290,19 @@ select {
 }
 .app-shell-content {
   min-height: 0;
+  overflow-x: hidden;
   overscroll-behavior-y: contain;
 }
 
+[data-slot='app-shell-mobile-header'] {
+  z-index: 20;
+  border-bottom-color: color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--background) 92%, transparent);
+  box-shadow: 0 4px 16px rgb(75 48 33 / 4%);
+  backdrop-filter: blur(12px);
+}
+
 [data-slot='app-shell-sidebar'] {
-  display: flex;
   flex-direction: column;
   border-right-color: color-mix(in srgb, var(--border) 78%, transparent);
   box-shadow: 5px 0 24px rgb(75 48 33 / 3%);
@@ -1509,6 +1519,32 @@ select {
 }
 
 @media (max-width: 640px) {
+  [data-slot='page-header-actions'] {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  [data-slot='page-header-actions'] > button,
+  [data-slot='page-header-actions'] > a {
+    flex: 1 1 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .page-filter-bar {
+    align-items: stretch;
+  }
+
+  .page-filter-bar > :has(> [data-slot='select-trigger']) {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .page-filter-bar > button {
+    width: 100%;
+    justify-content: center;
+  }
+
   .dashboard-welcome-panel {
     align-items: flex-start;
     flex-direction: column;
@@ -1521,5 +1557,29 @@ select {
 
   .page-filter-bar > [data-slot='input'] {
     min-width: 100%;
+  }
+
+  .student-home-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .student-home-quote {
+    align-items: flex-start;
+  }
+
+  .class-path-timeline,
+  .class-path-library {
+    padding: 0.85rem;
+  }
+
+  .workspace-panel-heading {
+    flex-wrap: wrap;
+  }
+
+  .dashboard-donut-row {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
