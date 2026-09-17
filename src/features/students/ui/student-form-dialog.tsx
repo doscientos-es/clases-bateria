@@ -67,7 +67,7 @@ export function StudentFormDialog({
           <DialogHeader>
             <DialogTitle>{student ? 'Editar alumno' : 'Añadir alumno'}</DialogTitle>
             <DialogDescription>
-              Los datos se guardan solo en este navegador durante la demo.
+              Completa los datos del alumno para mantener actualizado el registro.
             </DialogDescription>
           </DialogHeader>
 

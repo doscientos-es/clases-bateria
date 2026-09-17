@@ -29,7 +29,7 @@ function RootError({ reset }: { reset: () => void }) {
     <DataViewState aria-live="polite">
       <DataViewStateTitle>No se ha podido cargar esta pantalla</DataViewStateTitle>
       <DataViewStateDescription>
-        Reintenta la operación o vuelve al inicio de la demo.
+        Reintenta la operación o vuelve al inicio.
       </DataViewStateDescription>
       <DataViewStateActions>
         <Button onPress={reset}>Reintentar</Button>
@@ -45,9 +45,7 @@ function NotFound() {
   return (
     <DataViewState>
       <DataViewStateTitle>Página no encontrada</DataViewStateTitle>
-      <DataViewStateDescription>
-        La ruta solicitada no existe en esta demo.
-      </DataViewStateDescription>
+      <DataViewStateDescription>La ruta solicitada no existe.</DataViewStateDescription>
       <DataViewStateActions>
         <Link to="/" className="text-sm underline">
           Volver al inicio

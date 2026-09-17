@@ -76,8 +76,8 @@ export function TeacherDetailPage({ teacherId }: { teacherId: string }) {
       <section className="border-border rounded-lg border p-4">
         <h2 className="text-sm font-semibold">Biblioteca y actividad</h2>
         <p className="text-muted-foreground mt-1 text-sm">
-          La semilla local no atribuye documentos a autores; la gestión de contenido está disponible
-          desde Biblioteca y cada itinerario.
+          Consulta el contenido de la escuela desde Biblioteca y organiza los materiales en cada
+          itinerario.
         </p>
       </section>
       <TeacherFormDialog teacher={teacher.data} isOpen={editing} onOpenChange={setEditing} />

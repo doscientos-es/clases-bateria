@@ -68,7 +68,7 @@ export function AppFrame({ children }: { children: ReactNode }) {
         className="text-muted-foreground flex min-h-svh items-center justify-center text-sm"
         role="status"
       >
-        Preparando la demo…
+        Preparando tu espacio…
       </div>
     )
   }
@@ -84,9 +84,6 @@ export function AppFrame({ children }: { children: ReactNode }) {
         <nav aria-label="Navegación principal" className="app-sidebar-navigation">
           <PrimaryNavigation role={identity.role} />
         </nav>
-        <div className="app-sidebar-footer">
-          <span className="text-muted-foreground px-2 text-xs">Demo local sin servidor</span>
-        </div>
       </AppShellSidebar>
       <AppShellMain>
         <AppShellMobileHeader className="justify-between">

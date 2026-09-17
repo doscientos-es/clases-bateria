@@ -123,7 +123,7 @@ export function DocumentFormDialog({
               onChange={(event) => change('fileName', event.target.value)}
             />
             <FieldDescription>
-              La demo no sube archivos reales: se guarda solo el nombre del PDF.
+              Indica el nombre del archivo PDF asociado a este recurso.
             </FieldDescription>
           </Field>
 

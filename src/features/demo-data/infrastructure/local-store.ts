@@ -41,7 +41,7 @@ export function createLocalStore(): DemoStore {
     try {
       storage.setItem(DEMO_STORAGE_KEY, JSON.stringify(data))
     } catch {
-      throw new DemoError('persistence', 'No se han podido guardar los datos de la demo.')
+      throw new DemoError('persistence', 'No se han podido guardar los cambios.')
     }
   }
 

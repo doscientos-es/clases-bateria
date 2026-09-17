@@ -5,8 +5,8 @@ import { AuthNoticePage } from '@/features/demo-auth'
 export const Route = createFileRoute('/registro')({
   component: () => (
     <AuthNoticePage
-      title="Registro no disponible en la demo"
-      description="Esta demo funciona con identidades preparadas. No se crean cuentas ni se envían datos a ningún servidor."
+      title="Crea tu cuenta"
+      description="El registro de nuevas cuentas lo gestiona el administrador de la escuela. Contacta con tu centro para recibir acceso."
     />
   ),
 })

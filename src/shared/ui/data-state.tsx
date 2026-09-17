@@ -20,7 +20,7 @@ export function LoadingBlock({ label = 'Cargando datos…' }: { label?: string }
 
 /** Recoverable error with an explicit retry. */
 export function ErrorBlock({
-  description = 'No se han podido cargar los datos de la demo.',
+  description = 'No se han podido cargar los datos.',
   onRetry,
 }: {
   description?: string

@@ -16,6 +16,7 @@ import {
   TabsTrigger,
 } from '@doscientos/ui'
 import { Link } from '@tanstack/react-router'
+import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -117,7 +118,7 @@ function StudentsPanel({
   return (
     <div className="space-y-4">
       <p className="text-muted-foreground text-sm">
-        Añade o retira alumnos de esta clase. Los cambios se guardan localmente.
+        Añade o retira alumnos de esta clase. Los cambios se reflejan al instante.
       </p>
       <div className="grid gap-2 md:grid-cols-2">
         {students.map((student) => (
@@ -210,63 +211,81 @@ function PathPanel({
         </Button>
       </section>
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold">Timeline de la clase</h2>
+        <div>
+          <h2 className="text-sm font-semibold">Itinerario de la clase</h2>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Ordena el contenido y compártelo con todos los alumnos cuando esté listo.
+          </p>
+        </div>
         {path.length === 0 ? (
-          <p className="text-muted-foreground text-sm">Aún no hay documentos preparados.</p>
+          <p className="text-muted-foreground text-sm">Aún no hay documentos en el itinerario.</p>
         ) : (
-          path.map((item, index) => (
-            <div
-              className="border-border flex items-center gap-3 rounded-lg border p-3"
-              key={item.document.id}
-            >
-              <span className="bg-muted flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
-                {index + 1}
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="font-medium">{item.document.title}</p>
-                <p className="text-muted-foreground text-xs">
-                  {item.document.category} ·{' '}
-                  {item.shared ? 'Visible para la clase' : 'Privado / preparado'}
-                </p>
-              </div>
-              <Checkbox
-                aria-label={`Compartir ${item.document.title} con la clase`}
-                isSelected={item.shared}
-                onChange={(checked) =>
-                  share.mutate({ classId, documentId: item.document.id, shared: checked })
-                }
+          <div className="itinerary-timeline">
+            {path.map((item, index) => (
+              <article
+                className={`itinerary-item ${item.shared ? 'itinerary-item-shared' : ''}`}
+                key={item.document.id}
               >
-                Compartir
-              </Checkbox>
-              <Button
-                size="sm"
-                variant="ghost"
-                onPress={() =>
-                  move.mutate({ classId, documentId: item.document.id, direction: 'up' })
-                }
-                isDisabled={index === 0}
-              >
-                ↑
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                onPress={() =>
-                  move.mutate({ classId, documentId: item.document.id, direction: 'down' })
-                }
-                isDisabled={index === path.length - 1}
-              >
-                ↓
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                onPress={() => remove.mutate({ classId, documentId: item.document.id })}
-              >
-                Quitar
-              </Button>
-            </div>
-          ))
+                <span className="itinerary-position" aria-hidden>
+                  {index + 1}
+                </span>
+                <div className="min-w-0 flex-1 space-y-1">
+                  <p className="font-medium">{item.document.title}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {item.document.category} · {item.document.level || 'Sin nivel'}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {item.shared ? 'Visible para la clase' : 'Pendiente de compartir'}
+                  </p>
+                </div>
+                <div className="itinerary-item-actions">
+                  <div className="share-check">
+                    <Checkbox
+                      aria-label={`Compartir ${item.document.title} con la clase`}
+                      isSelected={item.shared}
+                      onChange={(checked) =>
+                        share.mutate({ classId, documentId: item.document.id, shared: checked })
+                      }
+                    >
+                      Compartir
+                    </Checkbox>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      aria-label={`Mover ${item.document.title} arriba`}
+                      onPress={() =>
+                        move.mutate({ classId, documentId: item.document.id, direction: 'up' })
+                      }
+                      isDisabled={index === 0}
+                    >
+                      <ChevronUp aria-hidden />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      aria-label={`Mover ${item.document.title} abajo`}
+                      onPress={() =>
+                        move.mutate({ classId, documentId: item.document.id, direction: 'down' })
+                      }
+                      isDisabled={index === path.length - 1}
+                    >
+                      <ChevronDown aria-hidden />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      aria-label={`Quitar ${item.document.title} del itinerario`}
+                      onPress={() => remove.mutate({ classId, documentId: item.document.id })}
+                    >
+                      <Trash2 aria-hidden />
+                    </Button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         )}
       </section>
     </div>

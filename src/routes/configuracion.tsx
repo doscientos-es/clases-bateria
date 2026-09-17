@@ -6,7 +6,7 @@ export const Route = createFileRoute('/configuracion')({
   component: () => (
     <ComingSoonPage
       title="Configuración"
-      description="Entrada reservada para los ajustes de la escuela."
+      description="No hay ajustes pendientes para la escuela."
     />
   ),
 })

@@ -16,13 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
   SelectionToolbar,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
 } from '@doscientos/ui'
+import { FileText, MoreHorizontal } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -197,63 +192,47 @@ export function LibraryPage() {
       ) : null}
 
       {documents.data && documents.data.length > 0 ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Selección</TableHead>
-              <TableHead>Documento</TableHead>
-              <TableHead>Materia</TableHead>
-              <TableHead>Nivel</TableHead>
-              <TableHead>Visibilidad</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead>Acciones</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {documents.data.map((document) => (
-              <TableRow key={document.id}>
-                <TableCell>
+        <div className="document-visual-grid">
+          {documents.data.map((document) => (
+            <article className="document-card" key={document.id}>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
                   <Checkbox
                     aria-label={`Seleccionar ${document.title}`}
                     isSelected={selected.includes(document.id)}
                     onChange={(isSelected) => toggle(document.id, isSelected)}
                   />
-                </TableCell>
-                <TableCell>
-                  <span className="font-medium">{document.title}</span>
-                  <span className="text-muted-foreground block text-xs">{document.fileName}</span>
-                </TableCell>
-                <TableCell>{document.category}</TableCell>
-                <TableCell>{document.level}</TableCell>
-                <TableCell className="text-muted-foreground text-sm">
-                  {snapshot.data ? describeVisibility(snapshot.data, document.id) : '—'}
-                </TableCell>
-                <TableCell>
-                  <Badge variant={document.status === 'published' ? 'secondary' : 'outline'}>
-                    {statusLabels[document.status]}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <div className="flex flex-wrap gap-2">
-                    <Button size="sm" variant="outline" onPress={() => openForm(document)}>
-                      Editar
-                    </Button>
-                    {document.status === 'archived' ? null : (
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onPress={() => archive.mutate(document.id)}
-                        isDisabled={archive.isPending}
-                      >
-                        Archivar
-                      </Button>
-                    )}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                  <Button size="sm" variant="ghost" aria-label={`Más acciones para ${document.title}`}>
+                    <MoreHorizontal aria-hidden />
+                  </Button>
+                </div>
+                <div className="document-thumb" aria-hidden><FileText /></div>
+                <div>
+                  <h2 className="font-semibold">{document.title}</h2>
+                  <p className="text-muted-foreground mt-1 text-xs">{document.fileName}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline">{document.category}</Badge>
+                  <Badge variant="outline">{document.level || 'Inicial'}</Badge>
+                </div>
+                <p className="text-muted-foreground text-xs">
+                  {snapshot.data ? describeVisibility(snapshot.data, document.id) : 'Privado'}
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between gap-2 border-t border-border pt-3">
+                <Badge variant={document.status === 'published' ? 'secondary' : 'outline'}>
+                  {statusLabels[document.status]}
+                </Badge>
+                <div className="flex gap-1">
+                  <Button size="sm" variant="outline" onPress={() => openForm(document)}>Editar</Button>
+                  {document.status === 'archived' ? null : (
+                    <Button size="sm" variant="ghost" onPress={() => archive.mutate(document.id)} isDisabled={archive.isPending}>Archivar</Button>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       ) : null}
 
       <DocumentFormDialog document={editing} isOpen={isFormOpen} onOpenChange={setFormOpen} />

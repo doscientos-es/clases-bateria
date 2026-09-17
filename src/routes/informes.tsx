@@ -6,7 +6,7 @@ export const Route = createFileRoute('/informes')({
   component: () => (
     <ComingSoonPage
       title="Informes"
-      description="Entrada reservada para futuros informes de progreso."
+      description="Todavía no hay informes de progreso disponibles."
     />
   ),
 })

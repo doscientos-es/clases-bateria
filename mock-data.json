@@ -1,17 +1,20 @@
 {
-  "school": { "id": "school-aula-norte", "name": "Aula Norte" },
+  "school": {
+    "id": "school-aula-norte",
+    "name": "Aula Norte"
+  },
   "teachers": [
     {
       "id": "teacher-ana",
       "name": "Ana Martín",
-      "email": "ana@aulanorte.demo",
+      "email": "ana@aulanorte.es",
       "specialty": "Batería",
       "status": "active"
     },
     {
       "id": "teacher-david",
       "name": "David Soler",
-      "email": "david@aulanorte.demo",
+      "email": "david@aulanorte.es",
       "specialty": "Ritmo y lectura",
       "status": "active"
     }
@@ -20,22 +23,27 @@
     {
       "id": "student-lucia",
       "name": "Lucía Ferrer",
-      "email": "lucia@aulanorte.demo",
+      "email": "lucia@aulanorte.es",
       "status": "active"
     },
     {
       "id": "student-marcos",
       "name": "Marcos Vidal",
-      "email": "marcos@aulanorte.demo",
+      "email": "marcos@aulanorte.es",
       "status": "active"
     },
     {
       "id": "student-nora",
       "name": "Nora Casas",
-      "email": "nora@aulanorte.demo",
+      "email": "nora@aulanorte.es",
       "status": "active"
     },
-    { "id": "student-pau", "name": "Pau Rius", "email": "pau@aulanorte.demo", "status": "active" }
+    {
+      "id": "student-pau",
+      "name": "Pau Rius",
+      "email": "pau@aulanorte.es",
+      "status": "active"
+    }
   ],
   "classes": [
     {
@@ -114,8 +122,14 @@
     }
   ],
   "directShares": [
-    { "documentId": "doc-coordinacion", "studentId": "student-lucia" },
-    { "documentId": "doc-primer-groove", "studentId": "student-marcos" }
+    {
+      "documentId": "doc-coordinacion",
+      "studentId": "student-lucia"
+    },
+    {
+      "documentId": "doc-primer-groove",
+      "studentId": "student-marcos"
+    }
   ],
   "progress": [
     {

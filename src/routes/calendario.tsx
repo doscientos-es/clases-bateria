@@ -6,7 +6,7 @@ export const Route = createFileRoute('/calendario')({
   component: () => (
     <ComingSoonPage
       title="Calendario"
-      description="Entrada reservada para una futura planificación de clases."
+      description="No hay clases programadas para mostrar en el calendario."
     />
   ),
 })

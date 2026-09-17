@@ -95,7 +95,7 @@ export function PrimaryNavigation({
         <NavigationLink key={item.to} item={item} onNavigate={onNavigate} />
       ))}
       <div className="app-navigation-divider" />
-      <p className="app-navigation-section-label">Próximamente</p>
+      <p className="app-navigation-section-label">Más herramientas</p>
       {placeholderItems.map((item) => (
         <NavigationLink key={item.to} item={item} onNavigate={onNavigate} />
       ))}

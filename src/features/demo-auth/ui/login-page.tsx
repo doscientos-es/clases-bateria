@@ -26,21 +26,20 @@ export function LoginPage() {
         <p className="text-muted-foreground text-xs font-semibold tracking-[0.08em] uppercase">
           {snapshot.data?.school.name ?? 'Aula'}
         </p>
-        <h1 className="text-3xl font-semibold tracking-tight">Entra en la demo</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Inicia sesión</h1>
         <p className="text-muted-foreground text-sm">
-          Elige una identidad para recorrer la demo. No hay contraseñas ni envío de datos: todo se
-          guarda en este navegador.
+          Selecciona tu perfil para acceder al espacio de gestión o al portal del alumno.
         </p>
       </header>
 
       {snapshot.isPending ? (
         <p className="text-muted-foreground text-sm" role="status">
-          Cargando identidades de demo…
+          Cargando perfiles…
         </p>
       ) : null}
       {snapshot.isError ? (
         <div className="space-y-3" role="alert">
-          <p className="text-destructive text-sm">No se han podido cargar los datos de la demo.</p>
+          <p className="text-destructive text-sm">No se han podido cargar los perfiles.</p>
           <Button variant="outline" onPress={() => void snapshot.refetch()}>
             Reintentar
           </Button>

@@ -36,9 +36,7 @@ export function StudentDetailPage({ studentId }: { studentId: string }) {
     return <ErrorBlock onRetry={() => void student.refetch()} />
   }
   if (!student.data) {
-    return (
-      <ErrorBlock description="No se ha encontrado el alumno indicado en los datos de la demo." />
-    )
+    return <ErrorBlock description="No se ha encontrado el alumno indicado." />
   }
 
   const documents = library.data ?? []

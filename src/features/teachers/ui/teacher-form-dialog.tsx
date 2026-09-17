@@ -61,7 +61,7 @@ export function TeacherFormDialog({
           <DialogHeader>
             <DialogTitle>{teacher ? 'Editar profesor' : 'Añadir profesor'}</DialogTitle>
             <DialogDescription>
-              Los datos se guardan solo en este navegador durante la demo.
+              Completa los datos del profesor para mantener actualizado el equipo docente.
             </DialogDescription>
           </DialogHeader>
 
