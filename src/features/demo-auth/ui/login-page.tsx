@@ -48,7 +48,7 @@ export function LoginPage() {
 
       <IdentityGroup
         title="Profesorado"
-        description="Acceso al backoffice: clases, biblioteca e itinerarios."
+        description="Acceso a la gestión de clases, biblioteca e itinerarios."
         identities={teachers}
         onSelect={enterAs}
       />

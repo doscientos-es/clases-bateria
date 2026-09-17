@@ -2,6 +2,12 @@ import {
   Badge,
   Button,
   Checkbox,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
   PageHeader,
   PageHeaderActions,
   PageHeaderDescription,
@@ -54,6 +60,7 @@ export function ClassDetailPage({ classId }: { classId: string }) {
   const detail = useClassDetail(classId)
   const snapshot = useDemoSnapshot()
   const [editing, setEditing] = useState(false)
+  const [previewing, setPreviewing] = useState(false)
   if (detail.isPending) return <LoadingBlock label="Cargando clase…" />
   if (detail.isError) return <ErrorBlock onRetry={() => void detail.refetch()} />
   if (!detail.data) return <ErrorBlock description="No se ha encontrado la clase indicada." />
@@ -75,7 +82,7 @@ export function ClassDetailPage({ classId }: { classId: string }) {
           </PageHeaderMeta>
         </PageHeaderHeading>
         <PageHeaderActions>
-          <Button variant="outline">
+          <Button variant="outline" onPress={() => setPreviewing(true)}>
             <Eye aria-hidden /> Vista previa de la clase
           </Button>
           <Button variant="outline" onPress={() => setEditing(true)}>
@@ -110,6 +117,89 @@ export function ClassDetailPage({ classId }: { classId: string }) {
           </TabsContent>
         </TabsPanels>
       </Tabs>
+      <DialogRoot open={previewing} onOpenChange={setPreviewing}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{schoolClass.name}</DialogTitle>
+            <DialogDescription>
+              Vista previa de la información que compone esta clase.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-5">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="bg-muted/50 rounded-lg p-3">
+                <p className="text-muted-foreground text-xs font-medium uppercase">Nivel</p>
+                <p className="mt-1 font-medium">{schoolClass.level || 'Sin nivel'}</p>
+              </div>
+              <div className="bg-muted/50 rounded-lg p-3">
+                <p className="text-muted-foreground text-xs font-medium uppercase">Alumnos</p>
+                <p className="mt-1 font-medium">{students.length}</p>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold">Descripción</h3>
+              <p className="text-muted-foreground mt-1 text-sm">
+                {schoolClass.description || 'Esta clase todavía no tiene descripción.'}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold">Profesores</h3>
+              <div className="mt-2 space-y-2">
+                {teachers.length ? (
+                  teachers.map((teacher) => (
+                    <div className="person-cell" key={teacher.id}>
+                      <PersonAvatar person={teacher} size={30} />
+                      <div>
+                        <p className="text-sm font-medium">{teacher.name}</p>
+                        <p className="text-muted-foreground text-xs">{teacher.email}</p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-muted-foreground text-sm">Sin profesores asignados.</p>
+                )}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold">Alumnos</h3>
+              <div className="mt-2 space-y-2">
+                {students.length ? (
+                  students.map((student) => (
+                    <div className="person-cell" key={student.id}>
+                      <PersonAvatar person={student} size={30} />
+                      <p className="text-sm font-medium">{student.name}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-muted-foreground text-sm">Sin alumnos asignados.</p>
+                )}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold">Itinerario</h3>
+              {path.length ? (
+                <ol className="mt-2 space-y-2">
+                  {path.map((item, index) => (
+                    <li className="flex items-center gap-2 text-sm" key={item.document.id}>
+                      <span className="bg-secondary text-secondary-foreground grid size-6 shrink-0 place-items-center rounded-full text-xs font-semibold">
+                        {index + 1}
+                      </span>
+                      <span className="min-w-0 truncate">{item.document.title}</span>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="text-muted-foreground mt-2 text-sm">
+                  Aún no hay documentos en el itinerario.
+                </p>
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onPress={() => setPreviewing(false)}>Cerrar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </DialogRoot>
       <ClassFormDialog schoolClass={schoolClass} isOpen={editing} onOpenChange={setEditing} />
     </PageStack>
   )

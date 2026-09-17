@@ -9,6 +9,12 @@ import {
   Field,
   FieldLabel,
   Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectList,
+  SelectTrigger,
+  SelectValue,
   Textarea,
 } from '@doscientos/ui'
 import { useState, type FormEvent } from 'react'
@@ -20,10 +26,12 @@ import { useCreateClass, useUpdateClass } from '../application/class-hooks'
 const emptyForm: CreateClassInput = {
   name: '',
   description: '',
-  level: '',
+  level: 'Inicial',
   teacherIds: [],
   studentIds: [],
 }
+
+const classLevels = ['Inicial', 'Intermedio', 'Avanzado'] as const
 
 function formOf(schoolClass: SchoolClass | null): CreateClassInput {
   if (!schoolClass) return emptyForm
@@ -81,12 +89,26 @@ export function ClassFormDialog({
           </Field>
           <Field>
             <FieldLabel htmlFor="class-level">Nivel</FieldLabel>
-            <Input
+            <Select
               id="class-level"
-              value={form.level}
-              required
-              onChange={(e) => setForm({ ...form, level: e.target.value })}
-            />
+              aria-label="Nivel de la clase"
+              isRequired
+              selectedKey={form.level}
+              onSelectionChange={(key) => setForm({ ...form, level: String(key) })}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectList>
+                  {classLevels.map((level) => (
+                    <SelectItem key={level} id={level} textValue={level}>
+                      {level}
+                    </SelectItem>
+                  ))}
+                </SelectList>
+              </SelectContent>
+            </Select>
           </Field>
           <Field>
             <FieldLabel htmlFor="class-description">Descripción</FieldLabel>

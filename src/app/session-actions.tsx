@@ -1,10 +1,17 @@
-import { Badge, Button } from '@doscientos/ui'
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from '@doscientos/ui'
 import { useNavigate } from '@tanstack/react-router'
-import { UserRoundCog } from 'lucide-react'
+import { ArrowLeftRight, ChevronUp, LogOut } from 'lucide-react'
 
 import { useDemoSession, type DemoIdentity } from '@/features/demo-auth'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
-/** Identity summary plus the two actions that must always be reachable. */
+/** Sticky account menu with the demo session actions. */
 export function SessionActions({
   identity,
   onNavigate,
@@ -15,22 +22,40 @@ export function SessionActions({
   const { signOut } = useDemoSession()
   const navigate = useNavigate()
 
-  function changeUser() {
+  function leaveSession() {
     onNavigate?.()
     signOut()
     void navigate({ to: '/login' })
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="hidden text-sm font-medium sm:inline">{identity.name}</span>
-      <Badge variant={identity.role === 'teacher' ? 'secondary' : 'outline'}>
-        {identity.role === 'teacher' ? 'Profesor' : 'Alumno'}
-      </Badge>
-      <Button variant="outline" onPress={changeUser}>
-        <UserRoundCog aria-hidden />
+    <DropdownMenu
+      placement="top start"
+      trigger={
+        <Button
+          className="session-user-trigger"
+          variant="ghost"
+          aria-label={`Abrir menú de ${identity.name}`}
+        >
+          <PersonAvatar person={identity} size={32} />
+          <span className="session-user-copy">
+            <strong>{identity.name}</strong>
+            <small>{identity.email}</small>
+          </span>
+          <ChevronUp aria-hidden />
+        </Button>
+      }
+    >
+      <DropdownMenuLabel>Cuenta</DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem onPress={leaveSession}>
+        <ArrowLeftRight aria-hidden />
         Cambiar usuario
-      </Button>
-    </div>
+      </DropdownMenuItem>
+      <DropdownMenuItem variant="destructive" onPress={leaveSession}>
+        <LogOut aria-hidden />
+        Cerrar sesión
+      </DropdownMenuItem>
+    </DropdownMenu>
   )
 }

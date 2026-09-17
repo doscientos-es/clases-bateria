@@ -1,7 +1,6 @@
 import {
   AppShell,
   AppShellContent,
-  AppShellHeader,
   AppShellMain,
   AppShellMobileHeader,
   AppShellSidebar,
@@ -81,16 +80,19 @@ export function AppFrame({ children }: { children: ReactNode }) {
   const schoolName = snapshot.data?.school.name ?? 'Aula'
 
   return (
-    <AppShell sidebarBreakpoint="lg" className="bg-muted/35 h-svh overflow-hidden">
-      <AppShellSidebar aria-label="Navegación de escritorio">
+    <AppShell sidebarBreakpoint="lg" className="app-shell-root bg-muted/35 h-svh overflow-hidden">
+      <AppShellSidebar className="app-shell-sidebar" aria-label="Navegación de escritorio">
         <div className="app-sidebar-header">
           <BrandMark name={schoolName} />
         </div>
         <nav aria-label="Navegación principal" className="app-sidebar-navigation">
           <PrimaryNavigation role={identity.role} />
         </nav>
+        <div className="app-sidebar-session">
+          <SessionActions identity={identity} />
+        </div>
       </AppShellSidebar>
-      <AppShellMain>
+      <AppShellMain className="app-shell-main">
         <AppShellMobileHeader className="justify-between">
           <button
             type="button"
@@ -136,15 +138,8 @@ export function AppFrame({ children }: { children: ReactNode }) {
             </div>
           </Drawer>
           <BrandMark name={schoolName} />
-          <span className="text-muted-foreground text-xs">{identity.name}</span>
         </AppShellMobileHeader>
-        <AppShellHeader className="desktop-app-header h-14 shrink-0 justify-between px-6 lg:px-8">
-          <span className="text-muted-foreground text-sm font-medium">
-            {identity.role === 'teacher' ? 'Backoffice' : 'Portal del alumno'}
-          </span>
-          <SessionActions identity={identity} />
-        </AppShellHeader>
-        <AppShellContent className="mx-auto flex min-h-0 w-full max-w-[100rem] flex-1 flex-col overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <AppShellContent className="app-shell-content mx-auto flex min-h-0 w-full max-w-[100rem] flex-1 flex-col overflow-y-auto p-4 sm:p-6 lg:p-8">
           {children}
         </AppShellContent>
       </AppShellMain>

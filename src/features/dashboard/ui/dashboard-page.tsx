@@ -9,6 +9,7 @@ import {
   PageStack,
 } from '@doscientos/ui'
 import { Link, useNavigate } from '@tanstack/react-router'
+import ReactECharts from 'echarts-for-react'
 import { ArrowUpRight, BookOpen, CalendarDays, FileText, Library, Users } from 'lucide-react'
 
 import { useDemoSnapshot, type DemoData } from '@/features/demo-data'
@@ -50,35 +51,12 @@ export function DashboardPage() {
             >
               <div className="dashboard-panel-heading">
                 <div>
-                  <h2 id="dashboard-instruments">Alumnos por instrumento</h2>
-                  <p>Distribución actual de tu escuela</p>
+                  <h2 id="dashboard-instruments">Alumnos por clase</h2>
+                  <p>Distribución de las clases activas</p>
                 </div>
-                <span className="dashboard-panel-kicker">Este mes</span>
+                <span className="dashboard-panel-kicker">Ahora</span>
               </div>
-              <div className="dashboard-donut-row">
-                <div className="dashboard-donut">
-                  <strong>{dashboardSummary(snapshot.data).activeStudents}</strong>
-                  <small>alumnos activos</small>
-                </div>
-                <div className="dashboard-legend">
-                  <span>
-                    <i className="coral" />
-                    Batería <b>42%</b>
-                  </span>
-                  <span>
-                    <i className="blue" />
-                    Piano <b>28%</b>
-                  </span>
-                  <span>
-                    <i className="sage" />
-                    Guitarra <b>18%</b>
-                  </span>
-                  <span>
-                    <i className="sand" />
-                    Otros <b>12%</b>
-                  </span>
-                </div>
-              </div>
+              <StudentsByClassChart data={snapshot.data} />
             </section>
             <section className="dashboard-panel" aria-labelledby="dashboard-upcoming">
               <div className="dashboard-panel-heading">
@@ -268,6 +246,73 @@ export function DashboardPage() {
         </div>
       </section>
     </PageStack>
+  )
+}
+
+function StudentsByClassChart({ data }: { data: DemoData }) {
+  const activeClasses = data.classes
+    .filter((schoolClass) => schoolClass.status === 'active')
+    .sort((a, b) => b.studentIds.length - a.studentIds.length)
+  const topClasses = activeClasses.slice(0, 5)
+  const otherStudents = activeClasses
+    .slice(5)
+    .reduce((total, schoolClass) => total + schoolClass.studentIds.length, 0)
+  const classes = [
+    ...topClasses.map((schoolClass) => ({
+      id: schoolClass.id,
+      name: schoolClass.name,
+      studentCount: schoolClass.studentIds.length,
+    })),
+    ...(otherStudents
+      ? [{ id: 'other-classes', name: 'Otras clases', studentCount: otherStudents }]
+      : []),
+  ]
+  const palette = ['#d9826c', '#6e98ad', '#8da397', '#d8c8b4']
+  const option = {
+    animationDuration: 700,
+    animationEasing: 'cubicOut',
+    tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c} alumnos ({d}%)</strong>' },
+    series: [
+      {
+        type: 'pie',
+        radius: ['55%', '78%'],
+        center: ['50%', '50%'],
+        avoidLabelOverlap: true,
+        itemStyle: { borderColor: '#fffaf5', borderWidth: 4 },
+        label: { show: false },
+        data: classes.map((schoolClass, index) => ({
+          name: schoolClass.name,
+          value: schoolClass.studentCount,
+          itemStyle: { color: palette[index % palette.length] },
+        })),
+      },
+    ],
+  }
+
+  return (
+    <div className="dashboard-donut-row">
+      <div className="dashboard-echart">
+        <ReactECharts
+          option={option}
+          notMerge
+          lazyUpdate
+          style={{ width: '100%', height: '100%' }}
+          opts={{ renderer: 'svg' }}
+        />
+        <div className="dashboard-echart-center">
+          <strong>{dashboardSummary(data).activeStudents}</strong>
+          <small>alumnos activos</small>
+        </div>
+      </div>
+      <div className="dashboard-legend">
+        {classes.map((schoolClass, index) => (
+          <span key={schoolClass.id}>
+            <i style={{ background: palette[index % palette.length] }} />
+            {schoolClass.name} <b>{schoolClass.studentCount}</b>
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }
 
