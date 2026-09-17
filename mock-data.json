@@ -1,0 +1,134 @@
+{
+  "school": { "id": "school-aula-norte", "name": "Aula Norte" },
+  "teachers": [
+    {
+      "id": "teacher-ana",
+      "name": "Ana Martín",
+      "email": "ana@aulanorte.demo",
+      "specialty": "Batería",
+      "status": "active"
+    },
+    {
+      "id": "teacher-david",
+      "name": "David Soler",
+      "email": "david@aulanorte.demo",
+      "specialty": "Ritmo y lectura",
+      "status": "active"
+    }
+  ],
+  "students": [
+    {
+      "id": "student-lucia",
+      "name": "Lucía Ferrer",
+      "email": "lucia@aulanorte.demo",
+      "status": "active"
+    },
+    {
+      "id": "student-marcos",
+      "name": "Marcos Vidal",
+      "email": "marcos@aulanorte.demo",
+      "status": "active"
+    },
+    {
+      "id": "student-nora",
+      "name": "Nora Casas",
+      "email": "nora@aulanorte.demo",
+      "status": "active"
+    },
+    { "id": "student-pau", "name": "Pau Rius", "email": "pau@aulanorte.demo", "status": "active" }
+  ],
+  "classes": [
+    {
+      "id": "class-bateria-inicial",
+      "name": "Batería · Nivel inicial",
+      "teacherIds": ["teacher-ana"],
+      "studentIds": ["student-lucia", "student-marcos", "student-nora"],
+      "status": "active"
+    },
+    {
+      "id": "class-ritmo-1",
+      "name": "Ritmo y lectura · 1",
+      "teacherIds": ["teacher-david"],
+      "studentIds": ["student-lucia", "student-pau"],
+      "status": "active"
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-ritmo-subdivision",
+      "title": "Ritmo y subdivisión",
+      "category": "Ritmo",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "ritmo-subdivision.pdf"
+    },
+    {
+      "id": "doc-lectura-basica",
+      "title": "Lectura básica",
+      "category": "Lectura",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "lectura-basica.pdf"
+    },
+    {
+      "id": "doc-coordinacion",
+      "title": "Coordinación de manos y pies",
+      "category": "Técnica",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "coordinacion.pdf"
+    },
+    {
+      "id": "doc-primer-groove",
+      "title": "Tu primer groove",
+      "category": "Repertorio",
+      "level": "Inicial",
+      "status": "published",
+      "fileName": "primer-groove.pdf"
+    }
+  ],
+  "classDocumentPaths": [
+    {
+      "classId": "class-bateria-inicial",
+      "documentId": "doc-ritmo-subdivision",
+      "position": 1,
+      "shared": true
+    },
+    {
+      "classId": "class-bateria-inicial",
+      "documentId": "doc-lectura-basica",
+      "position": 2,
+      "shared": true
+    },
+    {
+      "classId": "class-bateria-inicial",
+      "documentId": "doc-coordinacion",
+      "position": 3,
+      "shared": false
+    },
+    {
+      "classId": "class-bateria-inicial",
+      "documentId": "doc-primer-groove",
+      "position": 4,
+      "shared": false
+    }
+  ],
+  "directShares": [
+    { "documentId": "doc-coordinacion", "studentId": "student-lucia" },
+    { "documentId": "doc-primer-groove", "studentId": "student-marcos" }
+  ],
+  "progress": [
+    {
+      "documentId": "doc-ritmo-subdivision",
+      "studentId": "student-lucia",
+      "viewed": true,
+      "completed": true
+    },
+    {
+      "documentId": "doc-lectura-basica",
+      "studentId": "student-lucia",
+      "viewed": true,
+      "completed": false
+    }
+  ]
+}
