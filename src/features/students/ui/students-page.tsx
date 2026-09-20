@@ -22,13 +22,21 @@ import {
   TableRow,
 } from '@doscientos/ui'
 import { Link } from '@tanstack/react-router'
+import { FileText } from 'lucide-react'
 import { useState } from 'react'
 
-import { useDemoSnapshot, type EntityStatus, type Student } from '@/features/demo-data'
+import {
+  buildStudentLibrary,
+  useDemoSnapshot,
+  type DemoData,
+  type EntityStatus,
+  type Student,
+} from '@/features/demo-data'
 import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
 import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 import { useArchiveStudent, useRestoreStudent, useStudents } from '../application/student-hooks'
+import { ShareWithStudentDialog } from './share-with-student-dialog'
 import { StudentFormDialog } from './student-form-dialog'
 
 const statusFilters = [
@@ -43,6 +51,7 @@ export function StudentsPage() {
   const [status, setStatus] = useState('all')
   const [editing, setEditing] = useState<Student | null>(null)
   const [isFormOpen, setFormOpen] = useState(false)
+  const [documentsStudent, setDocumentsStudent] = useState<Student | null>(null)
 
   const snapshot = useDemoSnapshot()
   const students = useStudents({
@@ -155,6 +164,7 @@ export function StudentsPage() {
             <TableRow>
               <TableHead>Alumno</TableHead>
               <TableHead>Email</TableHead>
+              <TableHead>Documentos compartidos</TableHead>
               <TableHead>Estado</TableHead>
               <TableHead>Acciones</TableHead>
             </TableRow>
@@ -173,6 +183,17 @@ export function StudentsPage() {
                   </div>
                 </TableCell>
                 <TableCell className="text-muted-foreground">{student.email}</TableCell>
+                <TableCell>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    aria-label={`Ver documentos compartidos de ${student.name}`}
+                    onPress={() => setDocumentsStudent(student)}
+                  >
+                    <FileText aria-hidden />
+                    {studentDocumentLabel(snapshot.data, student.id)}
+                  </Button>
+                </TableCell>
                 <TableCell>
                   <Badge variant={student.status === 'active' ? 'secondary' : 'outline'}>
                     {student.status === 'active' ? 'Activo' : 'Archivado'}
@@ -211,6 +232,19 @@ export function StudentsPage() {
       ) : null}
 
       <StudentFormDialog student={editing} isOpen={isFormOpen} onOpenChange={setFormOpen} />
+      <ShareWithStudentDialog
+        studentId={documentsStudent?.id ?? ''}
+        studentName={documentsStudent?.name ?? ''}
+        isOpen={Boolean(documentsStudent)}
+        onOpenChange={(open) => {
+          if (!open) setDocumentsStudent(null)
+        }}
+      />
     </PageStack>
   )
+}
+
+function studentDocumentLabel(data: DemoData | undefined, studentId: string): string {
+  const count = data ? buildStudentLibrary(data, studentId).length : 0
+  return `${count} documento${count === 1 ? '' : 's'} compartido${count === 1 ? '' : 's'}`
 }
