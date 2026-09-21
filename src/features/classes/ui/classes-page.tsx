@@ -12,6 +12,7 @@ import { Link } from '@tanstack/react-router'
 import { ArrowUpRight, BookOpen, UsersRound } from 'lucide-react'
 import { useState } from 'react'
 
+import { formatClassDate, formatClassTime } from '@/features/calendar/domain/calendar'
 import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
 
 import { useClasses } from '../application/class-hooks'
@@ -76,6 +77,11 @@ export function ClassesPage() {
                     {schoolClass.status === 'active' ? 'Activa' : 'Archivada'}
                   </Badge>
                 </div>
+                <p className="class-card-schedule">
+                  {schoolClass.scheduledAt
+                    ? `${formatClassDate(schoolClass.scheduledAt)} · ${formatClassTime(schoolClass.scheduledAt)}`
+                    : 'Sin fecha programada'}
+                </p>
               </div>
             </Link>
           ))}

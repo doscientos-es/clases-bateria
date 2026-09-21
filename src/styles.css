@@ -408,6 +408,274 @@ select {
   width: 1rem;
   height: 1rem;
 }
+.class-card-schedule {
+  margin-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.8rem;
+  color: var(--accent-foreground);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+.class-schedule-callout {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+  margin-top: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border));
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--accent) 48%, var(--card));
+  padding: 0.65rem 0.8rem;
+  color: var(--accent-foreground);
+  font-size: 0.8rem;
+}
+.class-schedule-callout span {
+  color: var(--muted-foreground);
+}
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(19rem, 0.75fr);
+  gap: 1rem;
+  align-items: start;
+}
+.calendar-panel {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--card);
+  padding: 1.15rem;
+  box-shadow: 0 8px 24px rgb(75 48 33 / 4%);
+}
+.calendar-toolbar,
+.calendar-section-heading,
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.calendar-toolbar h2,
+.calendar-section-heading h2 {
+  margin: 0.15rem 0 0;
+  color: #1b2a3a;
+  font-size: 1.25rem;
+  letter-spacing: -0.025em;
+}
+.calendar-eyebrow {
+  color: var(--primary);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.calendar-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.calendar-toolbar-actions button svg {
+  width: 1rem;
+}
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.calendar-weekdays {
+  margin-top: 1.2rem;
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.calendar-grid {
+  margin-top: 0.4rem;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.calendar-day {
+  position: relative;
+  display: flex;
+  min-height: 5.6rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  padding: 0.65rem;
+  color: var(--foreground);
+  cursor: pointer;
+  text-align: left;
+}
+.calendar-day:hover,
+.calendar-day-selected {
+  background: var(--accent);
+}
+.calendar-day-selected {
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--primary) 62%, transparent);
+}
+.calendar-day-muted {
+  background: var(--surface-subtle);
+  color: var(--muted-foreground);
+}
+.calendar-day-number {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.calendar-day-events {
+  display: flex;
+  gap: 0.22rem;
+}
+.calendar-day-events i,
+.calendar-legend i {
+  display: block;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.calendar-day small {
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.45rem;
+  color: var(--primary);
+  font-size: 0.65rem;
+  font-weight: 750;
+}
+.calendar-legend {
+  margin-top: 0.85rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+}
+.calendar-legend span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.calendar-side-column {
+  display: grid;
+  gap: 1rem;
+}
+.calendar-section-heading > svg {
+  width: 1.3rem;
+  color: var(--primary);
+}
+.calendar-event-list,
+.calendar-upcoming-list {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+.calendar-event-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border));
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--accent) 40%, var(--card));
+  padding: 0.75rem;
+}
+.calendar-event-time {
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+.calendar-event-title {
+  display: block;
+  color: var(--foreground);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.calendar-event-title:hover,
+.calendar-side-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.calendar-event-card p {
+  margin-top: 0.2rem;
+  color: var(--muted-foreground);
+  font-size: 0.7rem;
+}
+.calendar-event-card > svg {
+  width: 1rem;
+  flex: none;
+  color: var(--muted-foreground);
+}
+.calendar-empty {
+  margin-top: 1rem;
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.calendar-upcoming-list button {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 0.6rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  padding: 0.55rem 0;
+  color: var(--foreground);
+  cursor: pointer;
+  text-align: left;
+}
+.calendar-upcoming-list button:last-child {
+  border-bottom: 0;
+}
+.calendar-upcoming-list button:hover strong {
+  color: var(--primary);
+}
+.calendar-upcoming-list time {
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+.calendar-upcoming-list strong,
+.calendar-upcoming-list small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.calendar-upcoming-list strong {
+  font-size: 0.78rem;
+}
+.calendar-upcoming-list small {
+  margin-top: 0.18rem;
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+}
+.calendar-side-link {
+  display: inline-block;
+  margin-top: 0.85rem;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .calendar-panel {
+    padding: 0.8rem;
+  }
+  .calendar-day {
+    min-height: 4.2rem;
+    padding: 0.45rem;
+  }
+  .calendar-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
 .page-hero-banner {
   overflow: hidden;
   border-radius: 1rem;

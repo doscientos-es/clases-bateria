@@ -134,7 +134,12 @@
       "email": "sara@aulanorte.es",
       "status": "active"
     },
-    { "id": "student-nil", "name": "Nil Roca", "email": "nil@aulanorte.es", "status": "active" },
+    {
+      "id": "student-nil",
+      "name": "Nil Roca",
+      "email": "nil@aulanorte.es",
+      "status": "active"
+    },
     {
       "id": "student-paula",
       "name": "Paula Rey",
@@ -171,7 +176,12 @@
       "email": "nuria@aulanorte.es",
       "status": "active"
     },
-    { "id": "student-joan", "name": "Joan Sanz", "email": "joan@aulanorte.es", "status": "active" },
+    {
+      "id": "student-joan",
+      "name": "Joan Sanz",
+      "email": "joan@aulanorte.es",
+      "status": "active"
+    },
     {
       "id": "student-leire",
       "name": "Leire Martín",
@@ -197,6 +207,7 @@
       "name": "Batería · Nivel inicial",
       "teacherIds": ["teacher-ana"],
       "studentIds": ["student-lucia", "student-marcos", "student-nora"],
+      "scheduledAt": "2026-09-22T17:30",
       "status": "active"
     },
     {
@@ -204,6 +215,7 @@
       "name": "Ritmo y lectura · 1",
       "teacherIds": ["teacher-david"],
       "studentIds": ["student-lucia", "student-pau"],
+      "scheduledAt": "2026-09-24T18:30",
       "status": "active"
     }
   ],

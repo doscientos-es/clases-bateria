@@ -18,7 +18,13 @@ function parse(raw: string): DemoData | null {
     if (!parsed || typeof parsed !== 'object') return null
     const candidate = parsed as Partial<DemoData>
     if (!candidate.school || !Array.isArray(candidate.students)) return null
-    return candidate as DemoData
+    return {
+      ...(candidate as DemoData),
+      classes: (candidate.classes ?? []).map((schoolClass) => ({
+        ...schoolClass,
+        scheduledAt: schoolClass.scheduledAt ?? null,
+      })),
+    }
   } catch {
     return null
   }

@@ -35,6 +35,8 @@ export type SchoolClass = {
   level: string
   teacherIds: string[]
   studentIds: string[]
+  /** Local date/time in datetime-local format, or null when not scheduled yet. */
+  scheduledAt: string | null
   status: EntityStatus
 }
 

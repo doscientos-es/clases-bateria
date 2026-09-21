@@ -29,6 +29,7 @@ const emptyForm: CreateClassInput = {
   level: 'Inicial',
   teacherIds: [],
   studentIds: [],
+  scheduledAt: null,
 }
 
 const classLevels = ['Inicial', 'Intermedio', 'Avanzado'] as const
@@ -39,6 +40,7 @@ function formOf(schoolClass: SchoolClass | null): CreateClassInput {
     ...schoolClass,
     teacherIds: [...schoolClass.teacherIds],
     studentIds: [...schoolClass.studentIds],
+    scheduledAt: schoolClass.scheduledAt,
   }
 }
 
@@ -117,6 +119,20 @@ export function ClassFormDialog({
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
             />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="class-scheduled-at">Fecha y hora de la clase</FieldLabel>
+            <Input
+              id="class-scheduled-at"
+              type="datetime-local"
+              value={form.scheduledAt ?? ''}
+              onChange={(e) =>
+                setForm({ ...form, scheduledAt: e.target.value ? e.target.value : null })
+              }
+            />
+            <p className="text-muted-foreground text-xs">
+              La verán los alumnos asignados y aparecerá en tu calendario.
+            </p>
           </Field>
           {command.error ? (
             <p className="text-destructive text-sm" role="alert">

@@ -50,6 +50,7 @@ export function loadSeed(): DemoData {
     level: '',
     teacherIds: [...schoolClass.teacherIds],
     studentIds: [...schoolClass.studentIds],
+    scheduledAt: schoolClass.scheduledAt ?? null,
     status: entityStatus(schoolClass.status),
   }))
 

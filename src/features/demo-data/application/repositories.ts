@@ -39,6 +39,7 @@ export type CreateClassInput = {
   level: string
   teacherIds: string[]
   studentIds: string[]
+  scheduledAt: string | null
 }
 
 export type UpdateClassInput = CreateClassInput

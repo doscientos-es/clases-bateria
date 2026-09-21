@@ -47,6 +47,7 @@ export function createMockClassRepository(store: DemoStore): ClassRepository {
         level: input.level,
         teacherIds: [...input.teacherIds],
         studentIds: [...input.studentIds],
+        scheduledAt: input.scheduledAt,
         status: 'active',
       }
       store.write({ ...data, classes: [...data.classes, schoolClass] })
@@ -62,6 +63,7 @@ export function createMockClassRepository(store: DemoStore): ClassRepository {
         level: input.level,
         teacherIds: [...input.teacherIds],
         studentIds: [...input.studentIds],
+        scheduledAt: input.scheduledAt,
       }
       replace(data, schoolClass)
       return Promise.resolve(schoolClass)

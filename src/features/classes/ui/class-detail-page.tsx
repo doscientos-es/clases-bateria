@@ -34,6 +34,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
+import { formatClassDate, formatClassTime } from '@/features/calendar/domain/calendar'
 import {
   useDemoSnapshot,
   type ClassPathItem,
@@ -80,6 +81,18 @@ export function ClassDetailPage({ classId }: { classId: string }) {
               {teachers.map((teacher) => teacher.name).join(', ') || 'Sin profesor'}
             </span>
           </PageHeaderMeta>
+          <div className="class-schedule-callout">
+            <strong>
+              {schoolClass.scheduledAt
+                ? formatClassDate(schoolClass.scheduledAt)
+                : 'Sin fecha programada'}
+            </strong>
+            <span>
+              {schoolClass.scheduledAt
+                ? `A las ${formatClassTime(schoolClass.scheduledAt)}`
+                : 'Edita la clase para añadir fecha y hora'}
+            </span>
+          </div>
         </PageHeaderHeading>
         <PageHeaderActions>
           <Button variant="outline" onPress={() => setPreviewing(true)}>
