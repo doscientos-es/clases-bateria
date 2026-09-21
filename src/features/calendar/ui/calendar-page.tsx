@@ -8,7 +8,7 @@ import {
 } from '@doscientos/ui'
 import { Link } from '@tanstack/react-router'
 import { CalendarDays, ChevronLeft, ChevronRight, Clock3, UsersRound } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { useDemoSession } from '@/features/demo-auth'
 import { useDemoSnapshot, type SchoolClass } from '@/features/demo-data'
