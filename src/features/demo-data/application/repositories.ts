@@ -4,8 +4,10 @@ import type {
   DocumentItem,
   DocumentStatus,
   EntityStatus,
+  PaymentMethod,
   SchoolClass,
   Student,
+  StudentPayment,
   Teacher,
   VisibleDocument,
 } from '../domain/entities'
@@ -24,6 +26,14 @@ export type CreateStudentInput = {
 }
 
 export type UpdateStudentInput = CreateStudentInput
+
+export type CreatePaymentInput = {
+  studentId: string
+  amount: number
+  paidOn: string
+  method: PaymentMethod
+  note: string
+}
 
 export type CreateTeacherInput = {
   name: string
@@ -82,6 +92,12 @@ export interface StudentRepository {
   restore(id: string): Promise<void>
 }
 
+export interface PaymentRepository {
+  listByStudent(studentId: string): Promise<StudentPayment[]>
+  create(input: CreatePaymentInput): Promise<StudentPayment>
+  remove(id: string): Promise<void>
+}
+
 export interface TeacherRepository {
   list(): Promise<Teacher[]>
   getById(id: string): Promise<Teacher | null>
@@ -120,6 +136,7 @@ export interface DocumentRepository {
 export type DemoRepositories = {
   demoData: DemoDataRepository
   students: StudentRepository
+  payments: PaymentRepository
   teachers: TeacherRepository
   classes: ClassRepository
   documents: DocumentRepository

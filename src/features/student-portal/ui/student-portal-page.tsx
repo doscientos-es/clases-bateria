@@ -16,6 +16,7 @@ import { useState } from 'react'
 
 import { useDemoSession } from '@/features/demo-auth'
 import { useDemoSnapshot, useStudentLibrary, type VisibleDocument } from '@/features/demo-data'
+import { PaymentHistory } from '@/features/payments'
 import { ErrorBlock, EmptyBlock, LoadingBlock } from '@/shared/ui/data-state'
 import { ProgressBar } from '@/shared/ui/progress-bar'
 
@@ -99,6 +100,7 @@ export function StudentPortalPage() {
           />
         </section>
       </div>
+      <PaymentHistory studentId={studentId} title="Tus pagos" />
       <div className="student-documents-grid">
         <DocumentSection
           title="Para ti"

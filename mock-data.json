@@ -205,18 +205,47 @@
     {
       "id": "class-bateria-inicial",
       "name": "Batería · Nivel inicial",
-      "teacherIds": ["teacher-ana"],
-      "studentIds": ["student-lucia", "student-marcos", "student-nora"],
+      "teacherIds": [
+        "teacher-ana"
+      ],
+      "studentIds": [
+        "student-lucia",
+        "student-marcos",
+        "student-nora"
+      ],
       "scheduledAt": "2026-09-22T17:30",
       "status": "active"
     },
     {
       "id": "class-ritmo-1",
       "name": "Ritmo y lectura · 1",
-      "teacherIds": ["teacher-david"],
-      "studentIds": ["student-lucia", "student-pau"],
+      "teacherIds": [
+        "teacher-david"
+      ],
+      "studentIds": [
+        "student-lucia",
+        "student-pau"
+      ],
       "scheduledAt": "2026-09-24T18:30",
       "status": "active"
+    }
+  ],
+  "payments": [
+    {
+      "id": "payment-lucia-september",
+      "studentId": "student-lucia",
+      "amount": 45,
+      "paidOn": "2026-09-01",
+      "method": "transfer",
+      "note": "Mensualidad de septiembre"
+    },
+    {
+      "id": "payment-marcos-august",
+      "studentId": "student-marcos",
+      "amount": 45,
+      "paidOn": "2026-08-31",
+      "method": "cash",
+      "note": "Pago recibido en clase"
     }
   ],
   "documents": [

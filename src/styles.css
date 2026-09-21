@@ -658,6 +658,91 @@ select {
   font-weight: 700;
   text-decoration: none;
 }
+.payment-history {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--card);
+  padding: 1.1rem;
+  box-shadow: 0 8px 24px rgb(75 48 33 / 3%);
+}
+.payment-history-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.payment-history-heading h2 {
+  margin: 0;
+  color: #1b2a3a;
+  font-size: 1.15rem;
+}
+.payment-history-heading p {
+  margin-top: 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.76rem;
+}
+.payment-history-heading > strong {
+  color: var(--primary);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+.payment-list {
+  display: grid;
+  gap: 0.45rem;
+}
+.payment-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  border-top: 1px solid var(--border);
+  padding: 0.7rem 0;
+}
+.payment-method-icon {
+  display: grid;
+  width: 2.1rem;
+  height: 2.1rem;
+  flex: none;
+  place-items: center;
+  border-radius: 0.6rem;
+  background: var(--accent);
+  color: var(--primary);
+}
+.payment-method-icon svg {
+  width: 1.05rem;
+}
+.payment-row strong,
+.payment-row p,
+.payment-row small {
+  display: block;
+}
+.payment-row strong {
+  font-size: 0.85rem;
+}
+.payment-row p,
+.payment-row small {
+  margin-top: 0.15rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+}
+.payment-row small {
+  color: var(--foreground);
+  font-style: italic;
+}
+.payment-empty {
+  border: 1px dashed var(--border-strong);
+  border-radius: 0.7rem;
+  padding: 1rem;
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+}
+.payment-form {
+  display: grid;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
 @media (max-width: 900px) {
   .calendar-layout {
     grid-template-columns: 1fr;

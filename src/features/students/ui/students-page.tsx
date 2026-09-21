@@ -22,7 +22,7 @@ import {
   TableRow,
 } from '@doscientos/ui'
 import { Link } from '@tanstack/react-router'
-import { FileText } from 'lucide-react'
+import { Banknote, FileText } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -34,6 +34,8 @@ import {
 } from '@/features/demo-data'
 import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
 import { PersonAvatar } from '@/shared/ui/person-avatar'
+import { PaymentManagerDialog } from '@/features/payments'
+import { totalPayments } from '@/features/payments/domain/payment-format'
 
 import { useArchiveStudent, useRestoreStudent, useStudents } from '../application/student-hooks'
 import { ShareWithStudentDialog } from './share-with-student-dialog'
@@ -52,6 +54,7 @@ export function StudentsPage() {
   const [editing, setEditing] = useState<Student | null>(null)
   const [isFormOpen, setFormOpen] = useState(false)
   const [documentsStudent, setDocumentsStudent] = useState<Student | null>(null)
+  const [paymentsStudent, setPaymentsStudent] = useState<Student | null>(null)
 
   const snapshot = useDemoSnapshot()
   const students = useStudents({
@@ -165,6 +168,7 @@ export function StudentsPage() {
               <TableHead>Alumno</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Documentos compartidos</TableHead>
+              <TableHead>Cobros</TableHead>
               <TableHead>Estado</TableHead>
               <TableHead>Acciones</TableHead>
             </TableRow>
@@ -193,6 +197,19 @@ export function StudentsPage() {
                     <FileText aria-hidden />
                     {studentDocumentLabel(snapshot.data, student.id)}
                   </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onPress={() => setPaymentsStudent(student)}
+                    aria-label={`Gestionar cobros de ${student.name}`}
+                  >
+                    <Banknote aria-hidden /> Gestionar cobros
+                  </Button>
+                  <p className="text-muted-foreground mt-1 text-xs">
+                    {studentPaymentLabel(snapshot.data, student.id)}
+                  </p>
                 </TableCell>
                 <TableCell>
                   <Badge variant={student.status === 'active' ? 'secondary' : 'outline'}>
@@ -240,6 +257,13 @@ export function StudentsPage() {
           if (!open) setDocumentsStudent(null)
         }}
       />
+      <PaymentManagerDialog
+        student={paymentsStudent}
+        isOpen={Boolean(paymentsStudent)}
+        onOpenChange={(open) => {
+          if (!open) setPaymentsStudent(null)
+        }}
+      />
     </PageStack>
   )
 }
@@ -247,4 +271,13 @@ export function StudentsPage() {
 function studentDocumentLabel(data: DemoData | undefined, studentId: string): string {
   const count = data ? buildStudentLibrary(data, studentId).length : 0
   return `${count} documento${count === 1 ? '' : 's'} compartido${count === 1 ? '' : 's'}`
+}
+
+function studentPaymentLabel(data: DemoData | undefined, studentId: string): string {
+  const payments = data?.payments.filter((payment) => payment.studentId === studentId) ?? []
+  return `${formatAmount(totalPayments(payments))} registrado`
+}
+
+function formatAmount(amount: number): string {
+  return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount)
 }

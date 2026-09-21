@@ -6,9 +6,11 @@ import type {
   DocumentItem,
   DocumentStatus,
   EntityStatus,
+  PaymentMethod,
   ProgressEntry,
   SchoolClass,
   Student,
+  StudentPayment,
   Teacher,
 } from '../domain/entities'
 
@@ -20,6 +22,11 @@ function documentStatus(value: string): DocumentStatus {
   if (value === 'draft') return 'draft'
   if (value === 'archived') return 'archived'
   return 'published'
+}
+
+function paymentMethod(value: string): PaymentMethod {
+  if (value === 'cash' || value === 'card' || value === 'other') return value
+  return 'transfer'
 }
 
 /** Deep copy of the seed shipped with the demo. Never mutated in place. */
@@ -41,6 +48,15 @@ export function loadSeed(): DemoData {
     notes: '',
     status: entityStatus(student.status),
     enrolledOn: '',
+  }))
+
+  const payments: StudentPayment[] = (seed.payments ?? []).map((payment) => ({
+    id: payment.id,
+    studentId: payment.studentId,
+    amount: payment.amount,
+    paidOn: payment.paidOn,
+    method: paymentMethod(payment.method),
+    note: payment.note ?? '',
   }))
 
   const classes: SchoolClass[] = seed.classes.map((schoolClass) => ({
@@ -87,6 +103,7 @@ export function loadSeed(): DemoData {
     school: { id: seed.school.id, name: seed.school.name },
     teachers,
     students,
+    payments,
     classes,
     documents,
     classDocumentPaths,

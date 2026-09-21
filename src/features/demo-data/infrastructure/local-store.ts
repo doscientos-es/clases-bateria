@@ -20,6 +20,7 @@ function parse(raw: string): DemoData | null {
     if (!candidate.school || !Array.isArray(candidate.students)) return null
     return {
       ...(candidate as DemoData),
+      payments: Array.isArray(candidate.payments) ? candidate.payments : [],
       classes: (candidate.classes ?? []).map((schoolClass) => ({
         ...schoolClass,
         scheduledAt: schoolClass.scheduledAt ?? null,

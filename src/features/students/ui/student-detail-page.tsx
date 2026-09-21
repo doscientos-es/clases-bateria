@@ -14,6 +14,7 @@ import { useState } from 'react'
 
 import { useDemoSnapshot, useStudentLibrary } from '@/features/demo-data'
 import { useUnshareDocumentWithStudent } from '@/features/documents'
+import { PaymentHistory } from '@/features/payments'
 import { formatDate } from '@/shared/lib/dates'
 import { ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
 import { PersonAvatar } from '@/shared/ui/person-avatar'
@@ -77,6 +78,8 @@ export function StudentDetailPage({ studentId }: { studentId: string }) {
       </PageHeader>
 
       <ProgressBar completed={completed} total={documents.length} label="Teoría completada" />
+
+      <PaymentHistory studentId={studentId} />
 
       <section className="space-y-2" aria-label="Clases del alumno">
         <h2 className="text-sm font-semibold">Clases</h2>

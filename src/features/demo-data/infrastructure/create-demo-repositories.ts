@@ -2,6 +2,7 @@ import type { DemoRepositories } from '../application/repositories'
 import { createLocalStore } from './local-store'
 import { createMockClassRepository } from './mock-class-repository'
 import { createMockDocumentRepository } from './mock-document-repository'
+import { createMockPaymentRepository } from './mock-payment-repository'
 import { createMockStudentRepository } from './mock-student-repository'
 import { createMockTeacherRepository } from './mock-teacher-repository'
 
@@ -19,6 +20,7 @@ export function createDemoRepositories(): DemoRepositories {
       },
     },
     students: createMockStudentRepository(store),
+    payments: createMockPaymentRepository(store),
     teachers: createMockTeacherRepository(store),
     classes: createMockClassRepository(store),
     documents: createMockDocumentRepository(store),

@@ -28,6 +28,18 @@ export type Student = {
   enrolledOn: string
 }
 
+export type PaymentMethod = 'cash' | 'transfer' | 'card' | 'other'
+
+/** Manual payment record. It is not an invoice and never initiates a payment. */
+export type StudentPayment = {
+  id: string
+  studentId: string
+  amount: number
+  paidOn: string
+  method: PaymentMethod
+  note: string
+}
+
 export type SchoolClass = {
   id: string
   name: string
@@ -75,6 +87,7 @@ export type DemoData = {
   school: School
   teachers: Teacher[]
   students: Student[]
+  payments: StudentPayment[]
   classes: SchoolClass[]
   documents: DocumentItem[]
   classDocumentPaths: ClassPathEntry[]
