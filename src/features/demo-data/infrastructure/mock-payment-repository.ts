@@ -20,8 +20,9 @@ function validateInput(input: CreatePaymentInput): void {
 export function createMockPaymentRepository(store: DemoStore): PaymentRepository {
   return {
     listByStudent(studentId) {
-      const payments = store.read().payments
-        .filter((payment) => payment.studentId === studentId)
+      const payments = store
+        .read()
+        .payments.filter((payment) => payment.studentId === studentId)
         .sort((a, b) => b.paidOn.localeCompare(a.paidOn))
       return Promise.resolve(payments)
     },

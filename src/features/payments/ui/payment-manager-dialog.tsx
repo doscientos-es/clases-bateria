@@ -71,7 +71,9 @@ export function PaymentManagerDialog({
             inicia ningún cobro online.
           </DialogDescription>
         </DialogHeader>
-        {student ? <PaymentHistory studentId={student.id} title="Pagos registrados" canManage /> : null}
+        {student ? (
+          <PaymentHistory studentId={student.id} title="Pagos registrados" canManage />
+        ) : null}
         <form className="payment-form" onSubmit={submit}>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field>

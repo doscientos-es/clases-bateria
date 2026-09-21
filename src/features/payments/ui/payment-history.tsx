@@ -1,8 +1,9 @@
 import { Button } from '@doscientos/ui'
 import { Banknote, CreditCard, Landmark, WalletCards } from 'lucide-react'
 
-import { useRemovePayment, useStudentPayments } from '../application/payment-hooks'
 import type { PaymentMethod, StudentPayment } from '@/features/demo-data'
+
+import { useRemovePayment, useStudentPayments } from '../application/payment-hooks'
 import { formatPaymentDate, paymentMethodLabel, totalPayments } from '../domain/payment-format'
 
 export function PaymentHistory({
@@ -37,9 +38,7 @@ export function PaymentHistory({
         <strong>{formatAmount(totalPayments(entries))}</strong>
       </div>
       {entries.length === 0 ? (
-        <p className="payment-empty">
-          Todavía no hay pagos registrados para este alumno.
-        </p>
+        <p className="payment-empty">Todavía no hay pagos registrados para este alumno.</p>
       ) : (
         <div className="payment-list">
           {entries.map((payment) => (

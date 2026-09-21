@@ -10,7 +10,16 @@ import {
 } from '@doscientos/ui'
 import { Link, useNavigate } from '@tanstack/react-router'
 import ReactECharts from 'echarts-for-react'
-import { ArrowUpRight, BookOpen, CalendarDays, FileText, Library, Users } from 'lucide-react'
+import {
+  ArrowUpRight,
+  BookOpen,
+  CalendarDays,
+  FileText,
+  Library,
+  Music2,
+  Sparkles,
+  Users,
+} from 'lucide-react'
 
 import { useDemoSnapshot, type DemoData } from '@/features/demo-data'
 import { ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
@@ -24,23 +33,49 @@ export function DashboardPage() {
   return (
     <PageStack>
       <section className="dashboard-welcome-panel">
-        <PageHeader>
-          <PageHeaderHeading>
-            <PageHeaderTitle>Resumen de la escuela</PageHeaderTitle>
-            <PageHeaderDescription>
-              {snapshot.data
-                ? `Actividad y próximos pasos de ${snapshot.data.school.name}.`
-                : 'Actividad y próximos pasos de tu escuela.'}
-            </PageHeaderDescription>
-          </PageHeaderHeading>
-        </PageHeader>
-        <span className="dashboard-welcome-note">Vista general</span>
+        <div className="dashboard-welcome-content">
+          <div className="dashboard-eyebrow">
+            <Sparkles aria-hidden /> Tu estudio, en movimiento
+          </div>
+          <PageHeader>
+            <PageHeaderHeading>
+              <PageHeaderTitle>Resumen de la escuela</PageHeaderTitle>
+              <PageHeaderDescription>
+                {snapshot.data
+                  ? `Actividad y próximos pasos de ${snapshot.data.school.name}.`
+                  : 'Actividad y próximos pasos de tu escuela.'}
+              </PageHeaderDescription>
+            </PageHeaderHeading>
+          </PageHeader>
+        </div>
+        <div className="dashboard-welcome-side">
+          <span className="dashboard-welcome-note">Vista general</span>
+          <div className="dashboard-welcome-art" aria-hidden>
+            <span />
+            <span />
+            <span />
+            <Music2 />
+          </div>
+        </div>
       </section>
 
       {snapshot.isPending ? <LoadingBlock /> : null}
       {snapshot.isError ? <ErrorBlock onRetry={() => void snapshot.refetch()} /> : null}
 
-      {snapshot.data ? <DashboardMetrics data={snapshot.data} /> : null}
+      {snapshot.data ? (
+        <>
+          <div className="dashboard-section-intro">
+            <div>
+              <span className="dashboard-section-kicker">El pulso de tu academia</span>
+              <h2>Todo lo importante, a mano</h2>
+            </div>
+            <span className="dashboard-live-status">
+              <i aria-hidden /> Actualizado ahora
+            </span>
+          </div>
+          <DashboardMetrics data={snapshot.data} />
+        </>
+      ) : null}
 
       {snapshot.data ? (
         <>
@@ -67,7 +102,7 @@ export function DashboardPage() {
                 <CalendarDays aria-hidden />
               </div>
               <div className="dashboard-upcoming-list">
-                <div>
+                <div className="dashboard-upcoming-item dashboard-upcoming-tone-coral">
                   <time>09:00</time>
                   <span>
                     <strong>Batería · Nivel inicial</strong>
@@ -75,7 +110,7 @@ export function DashboardPage() {
                   </span>
                   <em>Hoy</em>
                 </div>
-                <div>
+                <div className="dashboard-upcoming-item dashboard-upcoming-tone-blue">
                   <time>11:30</time>
                   <span>
                     <strong>Ritmo y lectura · 1</strong>
@@ -83,7 +118,7 @@ export function DashboardPage() {
                   </span>
                   <em>Hoy</em>
                 </div>
-                <div>
+                <div className="dashboard-upcoming-item dashboard-upcoming-tone-yellow">
                   <time>16:00</time>
                   <span>
                     <strong>Revisión de itinerario</strong>
@@ -233,9 +268,13 @@ export function DashboardPage() {
         </>
       ) : null}
 
-      <section className="space-y-3" aria-label="Accesos directos">
-        <h2 className="text-sm font-semibold">Accesos directos</h2>
-        <div className="flex flex-wrap gap-2">
+      <section className="dashboard-quick-actions" aria-label="Accesos directos">
+        <div>
+          <span className="dashboard-section-kicker">Siguiente compás</span>
+          <h2>Accesos directos</h2>
+          <p>Las acciones que más usas, sin buscar.</p>
+        </div>
+        <div className="dashboard-quick-action-list">
           <Button onPress={() => void navigate({ to: '/clases' })}>Ver clases</Button>
           <Button variant="outline" onPress={() => void navigate({ to: '/alumnos' })}>
             Gestionar alumnos
@@ -319,23 +358,35 @@ function StudentsByClassChart({ data }: { data: DemoData }) {
 function DashboardMetrics({ data }: { data: DemoData }) {
   const summary = dashboardSummary(data)
   return (
-    <MetricGrid columns={4}>
+    <MetricGrid columns={4} className="dashboard-metrics-grid">
       <MetricCard
         label="Alumnos activos"
         value={summary.activeStudents}
         icon={<Users aria-hidden />}
+        tone="success"
+        description="Personas aprendiendo"
       />
       <MetricCard
         label="Clases activas"
         value={summary.activeClasses}
         icon={<BookOpen aria-hidden />}
+        tone="info"
+        description="Itinerarios en marcha"
       />
       <MetricCard
         label="Documentos en biblioteca"
         value={summary.libraryDocuments}
         icon={<Library aria-hidden />}
+        tone="warning"
+        description="Material disponible"
       />
-      <MetricCard label="Profesores" value={data.teachers.length} icon={<Users aria-hidden />} />
+      <MetricCard
+        label="Profesores"
+        value={data.teachers.length}
+        icon={<Users aria-hidden />}
+        tone="danger"
+        description="Equipo docente"
+      />
     </MetricGrid>
   )
 }

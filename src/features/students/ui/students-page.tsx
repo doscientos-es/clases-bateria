@@ -32,10 +32,10 @@ import {
   type EntityStatus,
   type Student,
 } from '@/features/demo-data'
-import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
-import { PersonAvatar } from '@/shared/ui/person-avatar'
 import { PaymentManagerDialog } from '@/features/payments'
 import { totalPayments } from '@/features/payments/domain/payment-format'
+import { EmptyBlock, ErrorBlock, LoadingBlock } from '@/shared/ui/data-state'
+import { PersonAvatar } from '@/shared/ui/person-avatar'
 
 import { useArchiveStudent, useRestoreStudent, useStudents } from '../application/student-hooks'
 import { ShareWithStudentDialog } from './share-with-student-dialog'

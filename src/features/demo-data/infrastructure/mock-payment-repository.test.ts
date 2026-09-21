@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { loadSeed } from './seed-loader'
-import { createMockPaymentRepository } from './mock-payment-repository'
 import type { DemoStore } from './local-store'
+import { createMockPaymentRepository } from './mock-payment-repository'
+import { loadSeed } from './seed-loader'
 
 describe('mock payment repository', () => {
   it('records and removes manual payments for a student', async () => {
